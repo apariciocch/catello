@@ -1,12 +1,52 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     margin: 20px;
+    background-color: #f5f7fa;
+    color: #333;
 }
+
+h1 {
+    text-align: center;
+}
+
+form {
+    max-width: 1000px;
+    margin: auto;
+}
+
 fieldset {
     margin-bottom: 15px;
     padding: 10px;
     border: 1px solid #ccc;
+    background-color: #fff;
 }
+
 legend {
     font-weight: bold;
+}
+
+fieldset.personal-data label {
+    display: block;
+    margin-bottom: 1.5em;
+}
+
+#questions-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+button[type="submit"] {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
 }
