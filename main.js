@@ -1510,6 +1510,1860 @@ const questions = [
         "text": "No"
       }
     ]
+  },
+  {
+    "num": 85,
+    "text": "Mi timidez siempre se interpone cuando quiero entablar conversación con un desconocido del sexo que me atraiga",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "A medias",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 86,
+    "text": "Preferiría un trabajo con:",
+    "options": [
+      {
+        "value": "a",
+        "text": "Un sueldo fijo y seguro",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "Un sueldo elevado que dependiera de mi capacidad para demostrar constantemente que lo merezco",
+      },
+    ]
+  },
+  {
+    "num": 87,
+    "text": "Prefiero leer:",
+    "options": [
+      {
+        "value": "a",
+        "text": "Una narración realista de batallas militares o políticas",
+      },
+      {
+        "value": "b",
+        "text": "Quién sabe",
+      },
+      {
+        "value": "c",
+        "text": "Una novela sentimental",
+      },
+    ]
+  },
+  {
+    "num": 88,
+    "text": "Cuando la gente mandona trata de "empujarme a hacer algo" yo hago justamente lo opuesto",
+    "options": [
+      {
+        "value": "a",
+        "text": "A lo que ellos quieren",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 89,
+    "text": "Mucha gente mejoraría si recibiera más alabanzas y menos críticas",
+    "options": [
+      {
+        "value": "a",
+        "text": "Cierto",
+      },
+      {
+        "value": "b",
+        "text": "Dudoso",
+      },
+      {
+        "value": "c",
+        "text": "F also",
+      },
+    ]
+  },
+  {
+    "num": 90,
+    "text": "Cuando discuten de arte, religión o política, rara vez me acaloro hasta perder la cortesía y los buenos modales",
+    "options": [
+      {
+        "value": "a",
+        "text": "Cierto",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "F also",
+      },
+    ]
+  },
+  {
+    "num": 91,
+    "text": "Si alguien se enoja conmigo:",
+    "options": [
+      {
+        "value": "a",
+        "text": "Trataría de calmarlo",
+      },
+      {
+        "value": "b",
+        "text": "Quién sabe",
+      },
+      {
+        "value": "c",
+        "text": "Me irritaría",
+      },
+    ]
+  },
+  {
+    "num": 92,
+    "text": "Me gustaría que se formara un movimiento para:",
+    "options": [
+      {
+        "value": "a",
+        "text": "Que la gente coma más vegetales y así evitar el asesinato de tantos animales",
+      },
+      {
+        "value": "b",
+        "text": "No sé",
+      },
+      {
+        "value": "c",
+        "text": "Fabricar mejores venenos que maten a los animales que echan a perder las cosechas (ardillas, conejos y algunos pájaros)",
+      },
+    ]
+  },
+  {
+    "num": 93,
+    "text": "Si mis conocidos me hacen ver que les caigo mal y me tratan mal:",
+    "options": [
+      {
+        "value": "a",
+        "text": "Me importa poco",
+      },
+      {
+        "value": "b",
+        "text": "A medias",
+      },
+      {
+        "value": "c",
+        "text": "Tiendo a ponerme triste",
+      },
+    ]
+  },
+  {
+    "num": 94,
+    "text": "Los tipos indiferentes que dicen "lo mejor de la vida es gratis" por lo general no han trabajado para conseguir mucho",
+    "options": [
+      {
+        "value": "a",
+        "text": "Cierto",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "F also",
+      },
+    ]
+  },
+  {
+    "num": 95,
+    "text": "Dado que no siempre es posible que las cosas se hagan por métodos razonables y lógicos a veces es necesario usar la fuerza",
+    "options": [
+      {
+        "value": "a",
+        "text": "Cierto",
+      },
+      {
+        "value": "b",
+        "text": "A medias",
+      },
+      {
+        "value": "c",
+        "text": "F also",
+      },
+    ]
+  },
+  {
+    "num": 96,
+    "text": "Entre los quince y dieciséis años me interesé por el sexo opuesto",
+    "options": [
+      {
+        "value": "a",
+        "text": "Mucho",
+      },
+      {
+        "value": "b",
+        "text": "Lo mismo que los demás",
+      },
+      {
+        "value": "c",
+        "text": "Menos que los demás",
+      },
+    ]
+  },
+  {
+    "num": 97,
+    "text": "Me gusta tomar parte activa en asuntos sociales, comités, etc.",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "Quien sabe",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 98,
+    "text": "La idea de que las enfermedades provienen tanto de causas mentales como físicas es muy exagerada.",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "Quien sabe",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 99,
+    "text": "A veces me irritan demasiado pequeñas contrariedades.",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 100,
+    "text": "Muy rara vez suelto exclamaciones molestas que puedan herir los sentimientos de la gente.",
+    "options": [
+      {
+        "value": "a",
+        "text": "Cierto",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "F also",
+      },
+    ]
+  },
+  {
+    "num": 101,
+    "text": "Preferiría trabajar en una empresa",
+    "options": [
+      {
+        "value": "a",
+        "text": "Hablando con los clientes",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "Llevando las cuentas y el archivo.",
+      },
+    ]
+  },
+  {
+    "num": 102,
+    "text": ""Tamaño" es la "Longitud" como "Deshonesto" a:",
+    "options": [
+      {
+        "value": "a",
+        "text": "Prisión",
+      },
+      {
+        "value": "b",
+        "text": "pecado",
+      },
+      {
+        "value": "c",
+        "text": "Robo",
+      },
+    ]
+  },
+  {
+    "num": 103,
+    "text": "A B es a dc como S R es a:",
+    "options": [
+      {
+        "value": "a",
+        "text": "qp",
+      },
+      {
+        "value": "b",
+        "text": "pq",
+      },
+      {
+        "value": "c",
+        "text": "tu",
+      },
+    ]
+  },
+  {
+    "num": 104,
+    "text": "Cuando la gente no es razonable",
+    "options": [
+      {
+        "value": "a",
+        "text": "Me quedo callado",
+      },
+      {
+        "value": "b",
+        "text": "A medias",
+      },
+      {
+        "value": "c",
+        "text": "Los desprecio",
+      },
+    ]
+  },
+  {
+    "num": 105,
+    "text": "Si alguien habla en voz alta cuando estoy escuchando música",
+    "options": [
+      {
+        "value": "a",
+        "text": "Me concentro en la música y así no me molesta",
+      },
+      {
+        "value": "b",
+        "text": "A medias",
+      },
+      {
+        "value": "c",
+        "text": "Me echan a perder mi gusto y me molesto",
+      },
+    ]
+  },
+  {
+    "num": 106,
+    "text": "Creo que lo que me describe mejor es:",
+    "options": [
+      {
+        "value": "a",
+        "text": "Educado y tranquilo",
+      },
+      {
+        "value": "b",
+        "text": "A medias",
+      },
+      {
+        "value": "c",
+        "text": "Enérgico",
+      },
+    ]
+  },
+  {
+    "num": 107,
+    "text": "Asisto a eventos sociales solo cuando tengo que hacerlo, pero el resto del tiempo me alejo de ellos.",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 108,
+    "text": "Ser precavido y esperarpoco es mejor que ser optimista y esperar siempre el éxito.",
+    "options": [
+      {
+        "value": "a",
+        "text": "Cierto",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 109,
+    "text": "Cuando pienso en las dificultades de mi trabajo académico:",
+    "options": [
+      {
+        "value": "a",
+        "text": "Trato de planearlas anticipadamente",
+      },
+      {
+        "value": "b",
+        "text": "A medias",
+      },
+      {
+        "value": "c",
+        "text": "Supongo que podré manejarlas cuando se presenten",
+      },
+    ]
+  },
+  {
+    "num": 110,
+    "text": "Tengo tantas amistades del sexo opuesto como del mío.",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "Quien sabe",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 111,
+    "text": "Aún cuando se trate de un juego importante me interesa más divertirme que ganarlo",
+    "options": [
+      {
+        "value": "a",
+        "text": "Siempre",
+      },
+      {
+        "value": "b",
+        "text": "Por lo general",
+      },
+      {
+        "value": "c",
+        "text": "En Ocasiones",
+      },
+    ]
+  },
+  {
+    "num": 112,
+    "text": "Preferiría ser:",
+    "options": [
+      {
+        "value": "a",
+        "text": "Orientador vocacional de muchachos que tratan de encontrar su carrera",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "La gente, en el aspecto técnico, de una fábrica",
+      },
+    ]
+  },
+  {
+    "num": 113,
+    "text": "Si estoy ompletamente seguro de que una persona es injusta o se porta de un modo egoísta se lo digo, aunque me traiga problemas",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 114,
+    "text": "Algunas gentes critican mi sentido de responsabilidad",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 115,
+    "text": "Me gustaría ser reportero de teatro, ópera, conciertos, etc.",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "Quien sabe",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 116,
+    "text": "Me perturba que me alaben o me digan cumplidos",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 117,
+    "text": "Me parece que es más importante para el mundo actual resolver",
+    "options": [
+      {
+        "value": "a",
+        "text": "Las dificultades políticas",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "El problema moral",
+      },
+    ]
+  },
+  {
+    "num": 118,
+    "text": "En ocasiones tengo un vago sentimiento de peligro o un repentino temor sin que exista motivo suficiente",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 119,
+    "text": "De chico le tenía miedo a la oscuridad",
+    "options": [
+      {
+        "value": "a",
+        "text": "A menudo",
+      },
+      {
+        "value": "b",
+        "text": "A veces",
+      },
+      {
+        "value": "c",
+        "text": "Nunca",
+      },
+    ]
+  },
+  {
+    "num": 120,
+    "text": "En una tarde libre me gustaría:",
+    "options": [
+      {
+        "value": "a",
+        "text": "Ver una película de aventuras históricas",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 121,
+    "text": "Me fastidia que la gente piense que soy demasiado diferente a muy poco convencional",
+    "options": [
+      {
+        "value": "a",
+        "text": "Mucho",
+      },
+      {
+        "value": "b",
+        "text": "A veces",
+      },
+      {
+        "value": "c",
+        "text": "Nunca",
+      },
+    ]
+  },
+  {
+    "num": 122,
+    "text": "La mayoría de la gente sería más feliz si viviera más ligada a sus semejantes e hiciera las mismas cosas que todos",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "Quien sabe",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 123,
+    "text": "Me gustaría hacer las cosas a mi modo en vez de obrar de acuerdo con las reglas aprobadas",
+    "options": [
+      {
+        "value": "a",
+        "text": "Cierto",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "F also",
+      },
+    ]
+  },
+  {
+    "num": 124,
+    "text": "A menudo me enojo demasiado rápido con la gente",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 125,
+    "text": "Cuando algo me transtorna de veras,por lo general me calmo muy rápido",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "A medias",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 126,
+    "text": "Si el sueldo fuera igual, preferiría ser:",
+    "options": [
+      {
+        "value": "a",
+        "text": "Abogado",
+      },
+      {
+        "value": "b",
+        "text": "Quien sabe",
+      },
+      {
+        "value": "c",
+        "text": "Piloto o navegante",
+      },
+    ]
+  },
+  {
+    "num": 127,
+    "text": ""Mejor" es a "Peor",como "Más lento" es a:",
+    "options": [
+      {
+        "value": "a",
+        "text": "Rápido",
+      },
+      {
+        "value": "b",
+        "text": "Óptimo",
+      },
+      {
+        "value": "c",
+        "text": "Más veloz",
+      },
+    ]
+  },
+  {
+    "num": 128,
+    "text": "Cuál es la que debe ir al final de esta lista:: xooooxxoooxxx?",
+    "options": [
+      {
+        "value": "a",
+        "text": "xox",
+      },
+      {
+        "value": "b",
+        "text": "oox",
+      },
+      {
+        "value": "c",
+        "text": "oxx",
+      },
+    ]
+  },
+  {
+    "num": 129,
+    "text": "Cuando llega la hora de algo que yo había planeado o anticipado, a veces siento ganas de no ir.",
+    "options": [
+      {
+        "value": "a",
+        "text": "Cierto",
+      },
+      {
+        "value": "b",
+        "text": "A medias",
+      },
+      {
+        "value": "c",
+        "text": "F also",
+      },
+    ]
+  },
+  {
+    "num": 130,
+    "text": "Podría gustarme la vida de un veterinario ocupado en las enfermedades y cirugía de los animales.",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "Quien sabe",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 131,
+    "text": "En ocasiones les digo a personas desconocidas cosas que me parecen importantes aunque ellas no me las pregunten.",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 132,
+    "text": "Yo paso mucho de mi tiempo libre hablando con amigos de eventos sociales con los cuales nos divertimos en el pasado",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 133,
+    "text": "Me agrada hacer cosas temerarias y atrevidas nada más por gusto.",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 134,
+    "text": "Creo que podemos confiar en que la policía no maltrata a los inocentes",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 135,
+    "text": "Me considero una persona muy sociable con la que es fácil llevarse.",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "A medias",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 136,
+    "text": "En el trato social:",
+    "options": [
+      {
+        "value": "a",
+        "text": "Demuestro mis emociones",
+      },
+      {
+        "value": "b",
+        "text": "A medias",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 137,
+    "text": "Me gusta la música",
+    "options": [
+      {
+        "value": "a",
+        "text": "Aguda, ligera y viva.",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "Emotiva y sentimental",
+      },
+    ]
+  },
+  {
+    "num": 138,
+    "text": "En los chistes yo trato de hacer que mi risa sea más moderada  que la de la mayoría de la gente.",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 139,
+    "text": "Admiro más las belleza de un cuento de hadas, que la de un revólver bien hecho.",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 140,
+    "text": "Oir diferentes opiniones del bien y del mal:",
+    "options": [
+      {
+        "value": "a",
+        "text": "Siempre interesa",
+      },
+      {
+        "value": "b",
+        "text": "No se puede evitar",
+      },
+      {
+        "value": "c",
+        "text": "Perjudica a la mayoría de la gente",
+      },
+    ]
+  },
+  {
+    "num": 141,
+    "text": "Siempre me interesa los asuntos de mecánica, como los coches y aviones, por ejemplo.",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "A medias",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 142,
+    "text": "Me gusta enfrentarme a los problemas que otras gentes han dejado enredados",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 143,
+    "text": "Me consideran, acertadamente, como una persona trabajadora y de poco éxito",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 144,
+    "text": "Si la gente abusa de mi amistad, no lo resiento y lo olvido rápido",
+    "options": [
+      {
+        "value": "a",
+        "text": "Si",
+      },
+      {
+        "value": "b",
+        "text": "Quien sabe",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 145,
+    "text": "Pienso que difundir el control de la natalidad, es esencial para resolver los problemas de la paz y de la economía en el mundo",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "Quien sabe",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 146,
+    "text": "Me gusta hacer mis planes yo solo, sin que nadie me interrumpa para aconsejarme.",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 147,
+    "text": "A veces dejo que mis acciones se vean influenciados por mis celos.",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 148,
+    "text": "Estoy convencido de que "el patrón podrá no tener la razón, pero tiene más derecho por ser patrón."",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 149,
+    "text": "Cuando pienso que se me viene un trabajo difícil tiendo a sudar o a temblar.",
+    "options": [
+      {
+        "value": "a",
+        "text": "Por lo general",
+      },
+      {
+        "value": "b",
+        "text": "En ocasiones",
+      },
+      {
+        "value": "c",
+        "text": "Nunca",
+      },
+    ]
+  },
+  {
+    "num": 150,
+    "text": "Me molesta que la gente me grite lo que tengo que hacer cuando estoy jugando",
+    "options": [
+      {
+        "value": "a",
+        "text": "Cierto",
+      },
+      {
+        "value": "b",
+        "text": "Dudoso",
+      },
+      {
+        "value": "c",
+        "text": "F also",
+      },
+    ]
+  },
+  {
+    "num": 151,
+    "text": "Preferiría la vida de:",
+    "options": [
+      {
+        "value": "a",
+        "text": "Un artista",
+      },
+      {
+        "value": "b",
+        "text": "Quien sabe",
+      },
+      {
+        "value": "c",
+        "text": "Encargado de un club social",
+      },
+    ]
+  },
+  {
+    "num": 152,
+    "text": "¿Cuál de las siguientes palabras  no es de la misma clase que las otras dos?",
+    "options": [
+      {
+        "value": "a",
+        "text": "Cualquiera",
+      },
+      {
+        "value": "b",
+        "text": "Algo",
+      },
+      {
+        "value": "c",
+        "text": "Más",
+      },
+    ]
+  },
+  {
+    "num": 153,
+    "text": ""Llama" es a "Calor" como "Rosa" es a:",
+    "options": [
+      {
+        "value": "a",
+        "text": "Espina",
+      },
+      {
+        "value": "b",
+        "text": "Pétalo rojo",
+      },
+      {
+        "value": "c",
+        "text": "Perfume",
+      },
+    ]
+  },
+  {
+    "num": 154,
+    "text": "Tengo sueños tan reales que turban mi dormir",
+    "options": [
+      {
+        "value": "a",
+        "text": "A menudo",
+      },
+      {
+        "value": "b",
+        "text": "En ocasiones",
+      },
+      {
+        "value": "c",
+        "text": "Casi nunca",
+      },
+    ]
+  },
+  {
+    "num": 155,
+    "text": "Aunque las probabilidades de que algo tenga éxito están completamente en contra, sigo pensando en aceptar el riesgo",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 156,
+    "text": "Me agrada saber bien lo que el grupo tiene que hacer para que así sea yo el que manda.",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 157,
+    "text": "Preferiría vestirme sencilla y correctamente y no con un estilo personal y llamativo",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "Dudoso",
+      },
+      {
+        "value": "c",
+        "text": "F also",
+      },
+    ]
+  },
+  {
+    "num": 158,
+    "text": "Me llama más la atención pasar una tarde con un pasatiempo tranquilo que en una fiesta animada",
+    "options": [
+      {
+        "value": "a",
+        "text": "Cierto",
+      },
+      {
+        "value": "b",
+        "text": "Quien sabe",
+      },
+      {
+        "value": "c",
+        "text": "F also",
+      },
+    ]
+  },
+  {
+    "num": 159,
+    "text": "Cierro los ojos ante los consejos bien intencionados de otras personas, aunque no debería hacerlo",
+    "options": [
+      {
+        "value": "a",
+        "text": "En ocasiones",
+      },
+      {
+        "value": "b",
+        "text": "Casi nunca",
+      },
+      {
+        "value": "c",
+        "text": "Nunca",
+      },
+    ]
+  },
+  {
+    "num": 160,
+    "text": "Al decidir cualquier cosa, siempre hago hincapié en las reglas básicas de lo bueno y lo malo",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 161,
+    "text": "Me disgusta un poco que mi grupo me observe cuando estoy en el trabajo",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 162,
+    "text": "Casi siempre mi cuarto está bien arreglado con lugar para cada cosa y cada cosa en su lugar",
+    "options": [
+      {
+        "value": "a",
+        "text": "Si",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 163,
+    "text": "En el colegio me gustaba más",
+    "options": [
+      {
+        "value": "a",
+        "text": "Lengua y Literatura",
+      },
+      {
+        "value": "b",
+        "text": "Quien sabe",
+      },
+      {
+        "value": "c",
+        "text": "Aritmética y Matemáticas",
+      },
+    ]
+  },
+  {
+    "num": 164,
+    "text": "A veces me causa problemas el que la gente hable mal de mí a mis espaldas, sin tener razón",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 165,
+    "text": "Hablar con la gente convencional, común y corriente:",
+    "options": [
+      {
+        "value": "a",
+        "text": "A menudo es interesante e importante",
+      },
+      {
+        "value": "b",
+        "text": "A medias",
+      },
+      {
+        "value": "c",
+        "text": "Me molesta porque dicen tonterías y cosas superficiales",
+      },
+    ]
+  },
+  {
+    "num": 166,
+    "text": "me gusta:",
+    "options": [
+      {
+        "value": "a",
+        "text": "Tener un círculo de amigos íntimos aunque sean exigentes",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "Sentirme sin ataduras",
+      },
+    ]
+  },
+  {
+    "num": 167,
+    "text": "Pienso que es más sensato mantener poderosas a las Fuerzas Armadas del país, que depender de la buena voluntad internacional.",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "Quien sabe",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 168,
+    "text": "La gente me considera una persona estable, sin perturbaciones, inconmovible ante las altas y las bajas de la vida",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 169,
+    "text": "Pienso que la sociedad debería dejar que la razón la encaminara hacia nuevas costumbres y hacer a un lado los viejos hábitos y meras tradiciones",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 170,
+    "text": "Mis puntos de vista cambian de un modo incierto porque le tengo mas fé a mis sentimientos que a mi razonamiento lógico.",
+    "options": [
+      {
+        "value": "a",
+        "text": "Cierto",
+      },
+      {
+        "value": "b",
+        "text": "Hasta cierto punto",
+      },
+      {
+        "value": "c",
+        "text": "F also",
+      },
+    ]
+  },
+  {
+    "num": 171,
+    "text": "Yo aprendo mejor",
+    "options": [
+      {
+        "value": "a",
+        "text": "Leyendo un libro bien escrito",
+      },
+      {
+        "value": "b",
+        "text": "A medias",
+      },
+      {
+        "value": "c",
+        "text": "Interviniendo en la discusión de un grupo.",
+      },
+    ]
+  },
+  {
+    "num": 172,
+    "text": "Tengo ratos en los que me es difícil evitar un sentimiento de autocompasión",
+    "options": [
+      {
+        "value": "a",
+        "text": "A menudo",
+      },
+      {
+        "value": "b",
+        "text": "En ocasiones",
+      },
+      {
+        "value": "c",
+        "text": "Nunca",
+      },
+    ]
+  },
+  {
+    "num": 173,
+    "text": "Me gusta esperar hasta estar seguro de que lo que estoy haciendo es correcto antes de .presentar mis opiniones",
+    "options": [
+      {
+        "value": "a",
+        "text": "Siempre",
+      },
+      {
+        "value": "b",
+        "text": "Por lo general",
+      },
+      {
+        "value": "c",
+        "text": "Sólo si es conveniente",
+      },
+    ]
+  },
+  {
+    "num": 174,
+    "text": "Aunque me doy cuenta de que no tiene ninguna importancia algunas veces ciertas cositas me ponen los nervios de punta",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 175,
+    "text": "Pocas veces digo cosas, de las que después tenga que arrepentirme, empujado por una situación pasajera",
+    "options": [
+      {
+        "value": "a",
+        "text": "Cierto",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "F also",
+      },
+    ]
+  },
+  {
+    "num": 176,
+    "text": "Si me pidieran que trabajara en una obra de caridad",
+    "options": [
+      {
+        "value": "a",
+        "text": "Aceptaría",
+      },
+      {
+        "value": "b",
+        "text": "Quien sabe",
+      },
+      {
+        "value": "c",
+        "text": "respondería cortésmente que estoy ocupado",
+      },
+    ]
+  },
+  {
+    "num": 177,
+    "text": "¿Cuál de las siguientes palabras  no es de la misma clase que las otras dos?",
+    "options": [
+      {
+        "value": "a",
+        "text": "Amplio",
+      },
+      {
+        "value": "b",
+        "text": "zigzag",
+      },
+      {
+        "value": "c",
+        "text": "regular",
+      },
+    ]
+  },
+  {
+    "num": 178,
+    "text": ""Pronto" es a "Nunca" como "Cerca" es a:",
+    "options": [
+      {
+        "value": "a",
+        "text": "En ninguna parte",
+      },
+      {
+        "value": "b",
+        "text": "Lejos",
+      },
+      {
+        "value": "c",
+        "text": "Siguiente",
+      },
+    ]
+  },
+  {
+    "num": 179,
+    "text": "Tengo un buen sentido de orientación cuando estoy en un lugar extraño (descubro con facilidad dónde está el Norte, el Sur,etc.)",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 180,
+    "text": "Me conocen como un "hombre de ideas" porque siempre se me ocurren algunas cuando hay un problema.",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 181,
+    "text": "Pienso que soy mejor cuando demuestro:",
+    "options": [
+      {
+        "value": "a",
+        "text": "Serenidad en los retos que me hacen dentro del grupo.",
+      },
+      {
+        "value": "b",
+        "text": "Quien sabe",
+      },
+      {
+        "value": "c",
+        "text": "Mi tolerancia para con los deseos de otras personas",
+      },
+    ]
+  },
+  {
+    "num": 182,
+    "text": "me consideran una persona muy entusiasta.",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "A medias",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 183,
+    "text": "Me gusta un trabajo que tenga novedades, cambios y viajes aunque presenten ciertos peligros.",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 184,
+    "text": "Soy una persona bastante estricta que insiste siempre en hacer las cosas correctamente como sea posible",
+    "options": [
+      {
+        "value": "a",
+        "text": "Cierto",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 185,
+    "text": "Me gustan los trabajos que requieran habilidades exactas, concienzudas.",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "A medias",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 186,
+    "text": "Soy del tipo de gente con energía, de los que se mantienen ocupados",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "En duda",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
+  },
+  {
+    "num": 187,
+    "text": "Estoy seguro de que no hubo preguntas que haya omitido o que las haya contestado impropiamente",
+    "options": [
+      {
+        "value": "a",
+        "text": "Sí",
+      },
+      {
+        "value": "b",
+        "text": "Quien sabe",
+      },
+      {
+        "value": "c",
+        "text": "No",
+      },
+    ]
   }
 ];
 document.addEventListener("DOMContentLoaded", () => {
