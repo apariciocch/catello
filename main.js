@@ -1526,7 +1526,9 @@ document.addEventListener("DOMContentLoaded", () => {
       input.name = "q" + q.num;
       input.value = opt.value;
       label.appendChild(input);
-      label.appendChild(document.createTextNode(" " + opt.text));
+      label.appendChild(
+        document.createTextNode(" " + opt.value + ") " + opt.text)
+      );
       fieldset.appendChild(label);
       fieldset.appendChild(document.createElement("br"));
     });
