@@ -41,7 +41,7 @@ const questions = [
     "options": [
       {
         "value": "a",
-        "text": "0"
+        "text": "Siempre"
       },
       {
         "value": "b",
