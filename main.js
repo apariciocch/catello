@@ -3389,3 +3389,30 @@ document.addEventListener("DOMContentLoaded", () => {
     container.appendChild(fieldset);
   });
 });
+
+// Calcular Factor PB para A según las respuestas
+function calcularFactorPB_A(ans) {
+  const primera = [
+    [3, 'a'], [26, 'c'], [27, 'c'], [51, 'c'], [52, 'a'],
+    [76, 'c'], [101, 'a'], [126, 'a'], [151, 'c'], [176, 'a']
+  ];
+  const segunda = [
+    [3, 'b'], [26, 'b'], [27, 'b'], [51, 'b'], [52, 'b'],
+    [76, 'b'], [101, 'b'], [126, 'b'], [151, 'b'], [176, 'b']
+  ];
+  let total = 0;
+  primera.forEach(([n,v]) => { if (ans['q'+n] === v) total += 1; });
+  total *= 2;
+  segunda.forEach(([n,v]) => { if (ans['q'+n] === v) total += 1; });
+  return total;
+}
+
+document.getElementById('survey-form').addEventListener('submit', evt => {
+  evt.preventDefault();
+  const formData = new FormData(evt.target);
+  const respuestas = {};
+  questions.forEach(q => { respuestas['q'+q.num] = formData.get('q'+q.num); });
+  const pbA = calcularFactorPB_A(respuestas);
+  const cell = document.getElementById('pb-a');
+  if (cell) cell.textContent = pbA;
+});
