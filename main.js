@@ -1566,23 +1566,23 @@ const questions = [
     ]
   },
   {
-    "num": 88,
-    "text": "Cuando la gente mandona trata de "empujarme a hacer algo" yo hago justamente lo opuesto",
-    "options": [
-      {
-        "value": "a",
-        "text": "A lo que ellos quieren",
-      },
-      {
-        "value": "b",
-        "text": "En duda",
-      },
-      {
-        "value": "c",
-        "text": "No",
-      },
-    ]
-  },
+  "num": 88,
+  "text": "Cuando la gente mandona trata de \"empujarme a hacer algo\" yo hago justamente lo opuesto",
+  "options": [
+    {
+      "value": "a",
+      "text": "A lo que ellos quieren"
+    },
+    {
+      "value": "b",
+      "text": "En duda"
+    },
+    {
+      "value": "c",
+      "text": "No"
+    }
+  ]
+ },
   {
     "num": 89,
     "text": "Mucha gente mejoraría si recibiera más alabanzas y menos críticas",
@@ -1675,7 +1675,7 @@ const questions = [
   },
   {
     "num": 94,
-    "text": "Los tipos indiferentes que dicen "lo mejor de la vida es gratis" por lo general no han trabajado para conseguir mucho",
+    "text": "Los tipos indiferentes que dicen \"lo mejor de la vida es gratis\" por lo general no han trabajado para conseguir mucho",
     "options": [
       {
         "value": "a",
@@ -1819,7 +1819,7 @@ const questions = [
   },
   {
     "num": 102,
-    "text": ""Tamaño" es la "Longitud" como "Deshonesto" a:",
+    "text": "\"Tamaño\" es la \"Longitud\" como \"Deshonesto\" a:",
     "options": [
       {
         "value": "a",
@@ -2269,7 +2269,7 @@ const questions = [
   },
   {
     "num": 127,
-    "text": ""Mejor" es a "Peor",como "Más lento" es a:",
+    "text": "\"Mejor\" es a \"Peor\",como \"Más lento\" es a:",
     "options": [
       {
         "value": "a",
@@ -2647,7 +2647,7 @@ const questions = [
   },
   {
     "num": 148,
-    "text": "Estoy convencido de que "el patrón podrá no tener la razón, pero tiene más derecho por ser patrón."",
+    "text": "Estoy convencido de que \"el patrón podrá no tener la razón, pero tiene más derecho por ser patrón.\"",
     "options": [
       {
         "value": "a",
@@ -2737,7 +2737,7 @@ const questions = [
   },
   {
     "num": 153,
-    "text": ""Llama" es a "Calor" como "Rosa" es a:",
+    "text": "\"Llama\" es a \"Calor\" como \"Rosa\" es a:",
     "options": [
       {
         "value": "a",
@@ -3187,7 +3187,7 @@ const questions = [
   },
   {
     "num": 178,
-    "text": ""Pronto" es a "Nunca" como "Cerca" es a:",
+    "text": "\"Pronto\" es a \"Nunca\" como \"Cerca\" es a:",
     "options": [
       {
         "value": "a",
@@ -3223,7 +3223,7 @@ const questions = [
   },
   {
     "num": 180,
-    "text": "Me conocen como un "hombre de ideas" porque siempre se me ocurren algunas cuando hay un problema.",
+    "text": "Me conocen como un \"hombre de ideas\" porque siempre se me ocurren algunas cuando hay un problema.",
     "options": [
       {
         "value": "a",
