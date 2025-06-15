@@ -3854,4 +3854,36 @@ document.getElementById('survey-form').addEventListener('submit', evt => {
     window.resultsChart.data.datasets[0].data = data;
     window.resultsChart.update();
   }
+
+  const perfilData = [
+    pbA, pbB, pbC, pbE, pbF, pbG, pbH, pbI,
+    pbL, pbM, pbN, pbO, pbQ1, pbQ2, pbQ3, pbQ4
+  ];
+  if (!window.perfilChart) {
+    const perfilCtx = document.getElementById('perfil-chart').getContext('2d');
+    window.perfilChart = new Chart(perfilCtx, {
+      type: 'line',
+      data: {
+        labels: ['A','B','C','E','F','G','H','I','L','M','N','O','Q1','Q2','Q3','Q4'],
+        datasets: [{
+          label: 'Factores de personalidad',
+          data: perfilData,
+          borderColor: 'red',
+          backgroundColor: 'blue',
+          pointBackgroundColor: 'blue',
+          fill: false,
+          tension: 0.3,
+          pointRadius: 6,
+          pointHoverRadius: 8
+        }]
+      },
+      options: {
+        scales: { y: { beginAtZero: true, max: 20 } },
+        plugins: { legend: { display: false } }
+      }
+    });
+  } else {
+    window.perfilChart.data.datasets[0].data = perfilData;
+    window.perfilChart.update();
+  }
 });
