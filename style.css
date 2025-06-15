@@ -92,9 +92,10 @@ button#generate-report:hover {
     margin: 40px auto;
 }
 
+
 .chart-grid {
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: 1fr;
     align-items: center;
 }
 
@@ -102,19 +103,3 @@ button#generate-report:hover {
     max-width: 500px;
 }
 
-.labels {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    font-size: 0.8em;
-}
-
-.left-labels {
-    margin-right: 10px;
-    text-align: right;
-}
-
-.right-labels {
-    margin-left: 10px;
-    text-align: left;
-}
