@@ -63,3 +63,8 @@ button[type="submit"]:hover {
     padding: 5px;
     text-align: center;
 }
+
+.chart-wrapper {
+    max-width: 600px;
+    margin: 40px auto;
+}

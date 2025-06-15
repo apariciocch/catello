@@ -3800,4 +3800,50 @@ document.getElementById('survey-form').addEventListener('submit', evt => {
   if (dQ3) dQ3.textContent = decQ3;
   const dQ4 = document.getElementById('decat-q4');
   if (dQ4) dQ4.textContent = decQ4;
+
+  const labels = [
+    'A Soliloquia',
+    'B Baja Cap.esc.',
+    'C Debilidad Yo',
+    'E Sumisión',
+    'F Retraido',
+    'G Superego debil',
+    'H Timidez',
+    'I Severidad',
+    'L Confianza',
+    'M Objetividad',
+    'N Ingenuidad',
+    'O Adec. Serena',
+    'Q1 Conservadurismo',
+    'Q2 Dep. Grupal',
+    'Q3 Indiferencia',
+    'Q4 Tranquilidad'
+  ];
+  const data = [
+    decA, decB, decC, decE, decF, decG, decH, decI,
+    decL, decM, decN, decO, decQ1, decQ2, decQ3, decQ4
+  ];
+  if (!window.resultsChart) {
+    const ctx = document.getElementById('results-chart').getContext('2d');
+    window.resultsChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Decat',
+          data: data,
+          backgroundColor: 'rgba(54, 162, 235, 0.6)'
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        scales: {
+          x: { beginAtZero: true, max: 10 }
+        }
+      }
+    });
+  } else {
+    window.resultsChart.data.datasets[0].data = data;
+    window.resultsChart.update();
+  }
 });
