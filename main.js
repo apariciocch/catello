@@ -3373,12 +3373,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const legend = document.createElement("legend");
     legend.textContent = q.num + ". " + q.text;
     fieldset.appendChild(legend);
+    const updateColors = () => {
+      fieldset.querySelectorAll('label').forEach(l => {
+        l.classList.remove('user-selected');
+        l.classList.remove('default-selected');
+      });
+      const checked = fieldset.querySelector('input:checked');
+      if (checked) checked.parentElement.classList.add('user-selected');
+    };
     q.options.forEach(opt => {
       const label = document.createElement("label");
       const input = document.createElement("input");
       input.type = "radio";
       input.name = "q" + q.num;
       input.value = opt.value;
+      if (opt.value === 'a') {
+        input.checked = true;
+        label.classList.add('default-selected');
+      }
+      input.addEventListener('click', updateColors);
       label.appendChild(input);
       label.appendChild(
         document.createTextNode(" " + opt.value + ") " + opt.text)

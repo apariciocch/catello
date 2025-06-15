@@ -30,6 +30,14 @@ fieldset.personal-data label {
     margin-bottom: 1.5em;
 }
 
+label.default-selected {
+    color: red;
+}
+
+label.user-selected {
+    color: blue;
+}
+
 #questions-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
