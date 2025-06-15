@@ -3459,6 +3459,25 @@ function calcularFactorPB_E(ans) {
   return total;
 }
 
+// Calcular Factor PB para F según las respuestas
+function calcularFactorPB_F(ans) {
+  const primera = [
+    [8, 'c'], [33, 'a'], [58, 'a'], [82, 'c'],
+    [83, 'a'], [107, 'c'], [132, 'a'], [133, 'a'],
+    [157, 'c'], [158, 'c'], [182, 'a'], [183, 'a']
+  ];
+  const segunda = [
+    [8, 'b'], [33, 'b'], [58, 'b'], [82, 'b'],
+    [83, 'b'], [107, 'b'], [132, 'b'], [133, 'b'],
+    [157, 'b'], [158, 'b'], [182, 'b'], [183, 'b']
+  ];
+  let total = 0;
+  primera.forEach(([n,v]) => { if (ans['q'+n] === v) total += 1; });
+  total *= 2;
+  segunda.forEach(([n,v]) => { if (ans['q'+n] === v) total += 1; });
+  return total;
+}
+
 document.getElementById('survey-form').addEventListener('submit', evt => {
   evt.preventDefault();
   const formData = new FormData(evt.target);
@@ -3468,6 +3487,7 @@ document.getElementById('survey-form').addEventListener('submit', evt => {
   const pbB = calcularFactorPB_B(respuestas);
   const pbC = calcularFactorPB_C(respuestas);
   const pbE = calcularFactorPB_E(respuestas);
+  const pbF = calcularFactorPB_F(respuestas);
   const cellA = document.getElementById('pb-a');
   if (cellA) cellA.textContent = pbA;
   const cellB = document.getElementById('pb-b');
@@ -3476,4 +3496,6 @@ document.getElementById('survey-form').addEventListener('submit', evt => {
   if (cellC) cellC.textContent = pbC;
   const cellE = document.getElementById('pb-e');
   if (cellE) cellE.textContent = pbE;
+  const cellF = document.getElementById('pb-f');
+  if (cellF) cellF.textContent = pbF;
 });
