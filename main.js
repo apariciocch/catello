@@ -3935,6 +3935,13 @@ document.getElementById('survey-form').addEventListener('submit', evt => {
     decA, decB, decC, decE, decF, decG, decH, decI,
     decL, decM, decN, decO, decQ1, decQ2, decQ3, decQ4
   ];
+
+  factorLetters.forEach((f, idx) => {
+    const pbCell = document.getElementById(`perfil-pb-${f.toLowerCase()}`);
+    if (pbCell) pbCell.textContent = pbData[idx];
+    const decCell = document.getElementById(`perfil-decat-${f.toLowerCase()}`);
+    if (decCell) decCell.textContent = decatData[idx];
+  });
   Chart.register(ChartDataLabels);
   if (!window.resultsChart) {
     const ctx = document.getElementById('results-chart').getContext('2d');
@@ -3988,25 +3995,26 @@ document.getElementById('survey-form').addEventListener('submit', evt => {
     pbL, pbM, pbN, pbO, pbQ1, pbQ2, pbQ3, pbQ4
   ];
   if (!window.perfilChart) {
-    const perfilCtx = document.getElementById('perfil-chart').getContext('2d');
+    const perfilCanvas = document.getElementById('perfil-chart');
+    if (perfilCanvas) perfilCanvas.height = chartHeight;
+    const perfilCtx = perfilCanvas.getContext('2d');
     window.perfilChart = new Chart(perfilCtx, {
-      type: 'line',
+      type: 'bar',
       data: {
-        labels: ['A','B','C','E','F','G','H','I','L','M','N','O','Q1','Q2','Q3','Q4'],
+        labels: factorLetters,
         datasets: [{
-          label: 'Factores de personalidad',
+          label: 'PB',
           data: perfilData,
-          borderColor: 'red',
-          backgroundColor: 'blue',
-          pointBackgroundColor: 'blue',
-          fill: false,
-          tension: 0.3,
-          pointRadius: 6,
-          pointHoverRadius: 8
+          backgroundColor: 'rgba(54, 162, 235, 0.7)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
         }]
       },
       options: {
-        scales: { y: { beginAtZero: true, max: 20 } },
+        indexAxis: 'y',
+        scales: {
+          x: { beginAtZero: true, max: 20 }
+        },
         plugins: { legend: { display: false } }
       }
     });
