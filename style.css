@@ -68,3 +68,32 @@ button[type="submit"]:hover {
     max-width: 600px;
     margin: 40px auto;
 }
+
+.chart-grid {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+}
+
+.chart-grid canvas {
+    max-width: 400px;
+    height: 400px;
+}
+
+.labels {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 400px;
+    font-size: 0.8em;
+}
+
+.left-labels {
+    margin-right: 10px;
+    text-align: right;
+}
+
+.right-labels {
+    margin-left: 10px;
+    text-align: left;
+}
