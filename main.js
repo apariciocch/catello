@@ -3390,6 +3390,85 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+document.getElementById('generate-report').addEventListener('click', () => {
+  if (!window.reportData) {
+    alert('Primero complete el formulario y presione Enviar.');
+    return;
+  }
+  const { personal, pb, decat } = window.reportData;
+  const doc = new docx.Document();
+  const P = docx.Paragraph;
+  const H1 = level => new docx.Paragraph({ text: level, heading: docx.HeadingLevel.HEADING_1 });
+
+  doc.addSection({
+    children: [
+      H1('I. Datos Generales'),
+      new P(`Nombre y apellidos: ${personal.nombre}`),
+      new P('Fecha de nacimiento: ______________________________'),
+      new P(`Edad: ${personal.edad}`),
+      new P(`Sexo: ${personal.sexo}`),
+      new P(`Grado Educativo: ${personal.grado}`),
+      new P(`Fecha de evaluación  informe: ${personal.fecha}`),
+      new P(`Responsable Psicólogo: ${personal.responsable}`),
+
+      H1('II. Motivo de Consulta'),
+      new P('Propósito de la evaluación: __________________________________________'),
+
+      H1('III. Observación General de la Conducta'),
+      new P('Apariencia física: __________________________________________'),
+      new P('Conducta durante la evaluación: __________________________________________'),
+
+      H1('IV. Técnicas e Instrumentos Utilizados'),
+      new P('Enumeración de instrumentos: __________________________________________'),
+      new P('Entrevista'),
+      new P('Observación'),
+      new P('Test 16PF de Cattell'),
+
+      H1('V. Resultados'),
+      new P(`A PB:${pb.A} Decat:${decat.A}`),
+      new P(`B PB:${pb.B} Decat:${decat.B}`),
+      new P(`C PB:${pb.C} Decat:${decat.C}`),
+      new P(`E PB:${pb.E} Decat:${decat.E}`),
+      new P(`F PB:${pb.F} Decat:${decat.F}`),
+      new P(`G PB:${pb.G} Decat:${decat.G}`),
+      new P(`H PB:${pb.H} Decat:${decat.H}`),
+      new P(`I PB:${pb.I} Decat:${decat.I}`),
+      new P(`L PB:${pb.L} Decat:${decat.L}`),
+      new P(`M PB:${pb.M} Decat:${decat.M}`),
+      new P(`N PB:${pb.N} Decat:${decat.N}`),
+      new P(`O PB:${pb.O} Decat:${decat.O}`),
+      new P(`Q1 PB:${pb.Q1} Decat:${decat.Q1}`),
+      new P(`Q2 PB:${pb.Q2} Decat:${decat.Q2}`),
+      new P(`Q3 PB:${pb.Q3} Decat:${decat.Q3}`),
+      new P(`Q4 PB:${pb.Q4} Decat:${decat.Q4}`),
+
+      H1('VI. Integración de Resultados'),
+      new P('____________________________________________________________'),
+
+      H1('VII. Conclusiones'),
+      new P('____________________________________________________________'),
+
+      H1('VIII. Recomendaciones'),
+      new P('____________________________________________________________'),
+
+      H1('IX. Anexos'),
+      new P('Gráficos de perfil incluidos.'),
+
+      new P('Nombre y firma del evaluador'),
+      new P('Cláusula de confidencialidad y condiciones (válida para el momento presente, sujeta a nuevas evaluaciones si cambian las condiciones)')
+    ]
+  });
+
+  docx.Packer.toBlob(doc).then(blob => {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'informe.docx';
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+});
+
 // Calcular Factor PB para A según las respuestas
 function calcularFactorPB_A(ans) {
   const primera = [
@@ -3696,6 +3775,14 @@ document.getElementById('survey-form').addEventListener('submit', evt => {
   evt.preventDefault();
   const formData = new FormData(evt.target);
   const sexo = formData.get('sexo');
+  const personal = {
+    nombre: formData.get('nombre'),
+    edad: formData.get('edad'),
+    sexo: sexo,
+    grado: formData.get('grado'),
+    fecha: formData.get('fecha'),
+    responsable: formData.get('responsable')
+  };
   const respuestas = {};
   questions.forEach(q => { respuestas['q'+q.num] = formData.get('q'+q.num); });
   const pbA = calcularFactorPB_A(respuestas);
@@ -3872,4 +3959,20 @@ document.getElementById('survey-form').addEventListener('submit', evt => {
     window.perfilChart.data.datasets[0].data = perfilData;
     window.perfilChart.update();
   }
+
+  window.reportData = {
+    personal: personal,
+    pb: {
+      A: pbA, B: pbB, C: pbC, E: pbE, F: pbF,
+      G: pbG, H: pbH, I: pbI, L: pbL, M: pbM,
+      N: pbN, O: pbO, Q1: pbQ1, Q2: pbQ2,
+      Q3: pbQ3, Q4: pbQ4
+    },
+    decat: {
+      A: decA, B: decB, C: decC, E: decE, F: decF,
+      G: decG, H: decH, I: decI, L: decL, M: decM,
+      N: decN, O: decO, Q1: decQ1, Q2: decQ2,
+      Q3: decQ3, Q4: decQ4
+    }
+  };
 });
