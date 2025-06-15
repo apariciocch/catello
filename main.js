@@ -3695,6 +3695,7 @@ function calcularFactorPB_Q4(ans) {
 document.getElementById('survey-form').addEventListener('submit', evt => {
   evt.preventDefault();
   const formData = new FormData(evt.target);
+  const sexo = formData.get('sexo');
   const respuestas = {};
   questions.forEach(q => { respuestas['q'+q.num] = formData.get('q'+q.num); });
   const pbA = calcularFactorPB_A(respuestas);
@@ -3745,4 +3746,58 @@ document.getElementById('survey-form').addEventListener('submit', evt => {
   if (cellQ3) cellQ3.textContent = pbQ3;
   const cellQ4 = document.getElementById('pb-q4');
   if (cellQ4) cellQ4.textContent = pbQ4;
+
+  function pbToDecat(pb) {
+    return Math.min(10, Math.floor((pb - 1) / 3) + 1);
+  }
+
+  const decA = pbToDecat(pbA);
+  const decB = pbToDecat(pbB);
+  const decC = pbToDecat(pbC);
+  const decE = pbToDecat(pbE);
+  const decF = pbToDecat(pbF);
+  const decG = pbToDecat(pbG);
+  const decH = pbToDecat(pbH);
+  const decI = pbToDecat(pbI);
+  const decL = pbToDecat(pbL);
+  const decM = pbToDecat(pbM);
+  const decN = pbToDecat(pbN);
+  const decO = pbToDecat(pbO);
+  const decQ1 = pbToDecat(pbQ1);
+  const decQ2 = pbToDecat(pbQ2);
+  const decQ3 = pbToDecat(pbQ3);
+  const decQ4 = pbToDecat(pbQ4);
+
+  const dA = document.getElementById('decat-a');
+  if (dA) dA.textContent = decA;
+  const dB = document.getElementById('decat-b');
+  if (dB) dB.textContent = decB;
+  const dC = document.getElementById('decat-c');
+  if (dC) dC.textContent = decC;
+  const dE = document.getElementById('decat-e');
+  if (dE) dE.textContent = decE;
+  const dF = document.getElementById('decat-f');
+  if (dF) dF.textContent = decF;
+  const dG = document.getElementById('decat-g');
+  if (dG) dG.textContent = decG;
+  const dH = document.getElementById('decat-h');
+  if (dH) dH.textContent = decH;
+  const dI = document.getElementById('decat-i');
+  if (dI) dI.textContent = decI;
+  const dL = document.getElementById('decat-l');
+  if (dL) dL.textContent = decL;
+  const dM = document.getElementById('decat-m');
+  if (dM) dM.textContent = decM;
+  const dN = document.getElementById('decat-n');
+  if (dN) dN.textContent = decN;
+  const dO = document.getElementById('decat-o');
+  if (dO) dO.textContent = decO;
+  const dQ1 = document.getElementById('decat-q1');
+  if (dQ1) dQ1.textContent = decQ1;
+  const dQ2 = document.getElementById('decat-q2');
+  if (dQ2) dQ2.textContent = decQ2;
+  const dQ3 = document.getElementById('decat-q3');
+  if (dQ3) dQ3.textContent = decQ3;
+  const dQ4 = document.getElementById('decat-q4');
+  if (dQ4) dQ4.textContent = decQ4;
 });
