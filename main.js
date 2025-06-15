@@ -3908,17 +3908,25 @@ document.getElementById('survey-form').addEventListener('submit', evt => {
   const dQ4 = document.getElementById('decat-q4');
   if (dQ4) dQ4.textContent = decQ4;
 
-  const labels = [
+  const factorLetters = [
     'A','B','C','E','F','G','H','I',
     'L','M','N','O','Q1','Q2','Q3','Q4'
   ];
-  const chartHeight = labels.length * 40;
+  const leftNames = [
+    'Soliloquia','Baja Cap.esc.','Debilidad Yo','Sumisión',
+    'Retraido','Superego debil','Timidez','Severidad',
+    'Confianza','Objetividad','Ingenuidad','Adec. Serena',
+    'Conservadurismo','Dep. Grupal','Indiferencia','Tranquilidad'
+  ];
+  const rightNames = [
+    'Sociabilidad','Alta Cap.esc.','Fuerza sup del Yo','Dominante',
+    'Impetuosidad','Superego fuerte','Audacia','Sensib. Emoc',
+    'Desconfianza','Subjetividad','Astucia','Propens. Culpabil.',
+    'Radicalismo','Autosuficiencia','Control','Tensión'
+  ];
+  const chartHeight = factorLetters.length * 40;
   const canvas = document.getElementById('results-chart');
   if (canvas) canvas.height = chartHeight;
-  const leftLabels = document.querySelector('.left-labels');
-  if (leftLabels) leftLabels.style.height = chartHeight + 'px';
-  const rightLabels = document.querySelector('.right-labels');
-  if (rightLabels) rightLabels.style.height = chartHeight + 'px';
   const pbData = [
     pbA, pbB, pbC, pbE, pbF, pbG, pbH, pbI,
     pbL, pbM, pbN, pbO, pbQ1, pbQ2, pbQ3, pbQ4
@@ -3933,7 +3941,7 @@ document.getElementById('survey-form').addEventListener('submit', evt => {
     window.resultsChart = new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: labels,
+        labels: factorLetters,
         datasets: [
           {
             label: 'PB',
@@ -3950,7 +3958,15 @@ document.getElementById('survey-form').addEventListener('submit', evt => {
       options: {
         indexAxis: 'y',
         scales: {
-          x: { beginAtZero: true, max: 20 }
+          x: { beginAtZero: true, max: 20 },
+          y: {
+            ticks: {
+              callback: (val, idx) => [
+                factorLetters[idx],
+                `${leftNames[idx]} | ${rightNames[idx]}`
+              ]
+            }
+          }
         },
         plugins: {
           datalabels: {
