@@ -3497,6 +3497,201 @@ function calcularFactorPB_G(ans) {
   return total;
 }
 
+// Calcular Factor PB para H según las respuestas
+function calcularFactorPB_H(ans) {
+  const primera = [
+    [10, 'a'], [35, 'c'], [36, 'a'], [60, 'c'],
+    [61, 'c'], [85, 'c'], [86, 'c'], [110, 'a'],
+    [111, 'a'], [135, 'a'], [136, 'a'], [161, 'c'],
+    [186, 'a']
+  ];
+  const segunda = [
+    [10, 'b'], [35, 'b'], [36, 'b'], [60, 'b'],
+    [61, 'b'], [85, 'b'], [86, 'b'], [110, 'b'],
+    [135, 'b'], [136, 'b'], [161, 'b'], [186, 'b']
+  ];
+  let total = 0;
+  primera.forEach(([n,v]) => { if (ans['q'+n] === v) total += 1; });
+  total *= 2;
+  segunda.forEach(([n,v]) => { if (ans['q'+n] === v) total += 1; });
+  return total;
+}
+
+// Calcular Factor PB para I según las respuestas
+function calcularFactorPB_I(ans) {
+  const primera = [
+    [11, 'c'], [12, 'a'], [37, 'a'], [62, 'c'],
+    [87, 'c'], [112, 'a'], [137, 'c'], [138, 'a'],
+    [162, 'c'], [163, 'a']
+  ];
+  const segunda = [
+    [11, 'b'], [12, 'b'], [37, 'b'], [62, 'b'],
+    [87, 'b'], [112, 'b'], [137, 'b'], [138, 'b'],
+    [162, 'b'], [163, 'b']
+  ];
+  let total = 0;
+  primera.forEach(([n,v]) => { if (ans['q'+n] === v) total += 1; });
+  total *= 2;
+  segunda.forEach(([n,v]) => { if (ans['q'+n] === v) total += 1; });
+  return total;
+}
+
+// Calcular Factor PB para L según las respuestas
+function calcularFactorPB_L(ans) {
+  const primera = [
+    [13, 'c'], [38, 'a'], [63, 'c'], [64, 'c'],
+    [88, 'a'], [89, 'c'], [113, 'a'], [114, 'a'],
+    [139, 'c'], [164, 'a']
+  ];
+  const segunda = [
+    [13, 'b'], [38, 'b'], [63, 'b'], [64, 'b'],
+    [88, 'b'], [89, 'b'], [113, 'b'], [114, 'b'],
+    [139, 'b'], [164, 'b']
+  ];
+  let total = 0;
+  primera.forEach(([n,v]) => { if (ans['q'+n] === v) total += 1; });
+  total *= 2;
+  segunda.forEach(([n,v]) => { if (ans['q'+n] === v) total += 1; });
+  return total;
+}
+
+// Calcular Factor PB para M según las respuestas
+function calcularFactorPB_M(ans) {
+  const primera = [
+    [14, 'c'], [15, 'c'], [39, 'a'], [40, 'a'],
+    [65, 'a'], [90, 'c'], [91, 'a'], [115, 'a'],
+    [116, 'a'], [140, 'a'], [141, 'c'], [165, 'c'],
+    [166, 'c']
+  ];
+  const segunda = [
+    [14, 'b'], [15, 'b'], [39, 'b'], [40, 'b'],
+    [65, 'b'], [90, 'b'], [91, 'b'], [115, 'b'],
+    [116, 'b'], [140, 'b'], [141, 'b'], [165, 'b'],
+    [166, 'b']
+  ];
+  let total = 0;
+  primera.forEach(([n,v]) => { if (ans['q'+n] === v) total += 1; });
+  total *= 2;
+  segunda.forEach(([n,v]) => { if (ans['q'+n] === v) total += 1; });
+  return total;
+}
+
+// Calcular Factor PB para N según las respuestas
+function calcularFactorPB_N(ans) {
+  const primera = [
+    [20, 'a'], [45, 'c'], [70, 'a'], [95, 'c'],
+    [120, 'c'], [145, 'a'], [169, 'a'], [170, 'c']
+  ];
+  const segunda = [
+    [20, 'b'], [21, 'c'], [45, 'b'], [46, 'a'],
+    [70, 'b'], [95, 'b'], [120, 'b'], [145, 'b'],
+    [169, 'b'], [170, 'b']
+  ];
+  let total = 0;
+  primera.forEach(([n,v]) => { if (ans['q'+n] === v) total += 1; });
+  total *= 2;
+  segunda.forEach(([n,v]) => { if (ans['q'+n] === v) total += 1; });
+  return total;
+}
+
+// Calcular Factor PB para O según las respuestas
+function calcularFactorPB_O(ans) {
+  const primera = [
+    [18, 'a'], [19, 'c'], [43, 'a'], [44, 'c'],
+    [68, 'c'], [69, 'a'], [93, 'c'], [94, 'a'],
+    [118, 'a'], [119, 'a'], [143, 'a'], [144, 'c'],
+    [168, 'c']
+  ];
+  const segunda = [
+    [18, 'b'], [19, 'b'], [43, 'b'], [44, 'b'],
+    [68, 'b'], [69, 'b'], [93, 'b'], [94, 'b'],
+    [118, 'b'], [119, 'b'], [143, 'b'], [144, 'b'],
+    [168, 'b']
+  ];
+  let total = 0;
+  primera.forEach(([n,v]) => { if (ans['q'+n] === v) total += 1; });
+  total *= 2;
+  segunda.forEach(([n,v]) => { if (ans['q'+n] === v) total += 1; });
+  return total;
+}
+
+// Calcular Factor PB para Q1 según las respuestas
+function calcularFactorPB_Q1(ans) {
+  const primera = [
+    [21, 'a'], [46, 'c'], [70, 'a'], [95, 'c'],
+    [120, 'c'], [145, 'a'], [169, 'a'], [170, 'c']
+  ];
+  const segunda = [
+    [21, 'b'], [22, 'c'], [46, 'b'], [47, 'a'],
+    [70, 'b'], [95, 'b'], [120, 'b'], [145, 'b'],
+    [169, 'b'], [170, 'b']
+  ];
+  let total = 0;
+  primera.forEach(([n,v]) => { if (ans['q'+n] === v) total += 1; });
+  total *= 2;
+  segunda.forEach(([n,v]) => { if (ans['q'+n] === v) total += 1; });
+  return total;
+}
+
+// Calcular Factor PB para Q2 según las respuestas
+function calcularFactorPB_Q2(ans) {
+  const primera = [
+    [22, 'c'], [47, 'a'], [71, 'a'], [72, 'a'],
+    [96, 'c'], [97, 'c'], [121, 'c'], [122, 'c'],
+    [146, 'a'], [171, 'a']
+  ];
+  const segunda = [
+    [22, 'b'], [47, 'b'], [71, 'b'], [72, 'b'],
+    [96, 'b'], [97, 'b'], [121, 'b'], [122, 'b'],
+    [146, 'b'], [171, 'b']
+  ];
+  let total = 0;
+  primera.forEach(([n,v]) => { if (ans['q'+n] === v) total += 1; });
+  total *= 2;
+  segunda.forEach(([n,v]) => { if (ans['q'+n] === v) total += 1; });
+  return total;
+}
+
+// Calcular Factor PB para Q3 según las respuestas
+function calcularFactorPB_Q3(ans) {
+  const primera = [
+    [24, 'c'], [25, 'c'], [49, 'a'], [74, 'a'],
+    [99, 'a'], [123, 'c'], [147, 'c'], [148, 'a'],
+    [172, 'c'], [173, 'a']
+  ];
+  const segunda = [
+    [24, 'b'], [25, 'b'], [49, 'b'], [74, 'b'],
+    [99, 'b'], [123, 'b'], [147, 'b'], [148, 'b'],
+    [172, 'b'], [173, 'b']
+  ];
+  let total = 0;
+  primera.forEach(([n,v]) => { if (ans['q'+n] === v) total += 1; });
+  total *= 2;
+  segunda.forEach(([n,v]) => { if (ans['q'+n] === v) total += 1; });
+  return total;
+}
+
+// Calcular Factor PB para Q4 según las respuestas
+function calcularFactorPB_Q4(ans) {
+  const primera = [
+    [25, 'c'], [49, 'a'], [50, 'a'], [74, 'a'],
+    [75, 'c'], [99, 'a'], [100, 'c'], [124, 'a'],
+    [125, 'c'], [149, 'a'], [150, 'c'], [174, 'a'],
+    [175, 'c']
+  ];
+  const segunda = [
+    [25, 'b'], [49, 'b'], [50, 'b'], [74, 'b'],
+    [75, 'b'], [99, 'b'], [100, 'b'], [124, 'b'],
+    [125, 'b'], [149, 'b'], [150, 'b'], [174, 'b'],
+    [175, 'b']
+  ];
+  let total = 0;
+  primera.forEach(([n,v]) => { if (ans['q'+n] === v) total += 1; });
+  total *= 2;
+  segunda.forEach(([n,v]) => { if (ans['q'+n] === v) total += 1; });
+  return total;
+}
+
 document.getElementById('survey-form').addEventListener('submit', evt => {
   evt.preventDefault();
   const formData = new FormData(evt.target);
@@ -3508,6 +3703,16 @@ document.getElementById('survey-form').addEventListener('submit', evt => {
   const pbE = calcularFactorPB_E(respuestas);
   const pbF = calcularFactorPB_F(respuestas);
   const pbG = calcularFactorPB_G(respuestas);
+  const pbH = calcularFactorPB_H(respuestas);
+  const pbI = calcularFactorPB_I(respuestas);
+  const pbL = calcularFactorPB_L(respuestas);
+  const pbM = calcularFactorPB_M(respuestas);
+  const pbN = calcularFactorPB_N(respuestas);
+  const pbO = calcularFactorPB_O(respuestas);
+  const pbQ1 = calcularFactorPB_Q1(respuestas);
+  const pbQ2 = calcularFactorPB_Q2(respuestas);
+  const pbQ3 = calcularFactorPB_Q3(respuestas);
+  const pbQ4 = calcularFactorPB_Q4(respuestas);
   const cellA = document.getElementById('pb-a');
   if (cellA) cellA.textContent = pbA;
   const cellB = document.getElementById('pb-b');
@@ -3520,4 +3725,24 @@ document.getElementById('survey-form').addEventListener('submit', evt => {
   if (cellF) cellF.textContent = pbF;
   const cellG = document.getElementById('pb-g');
   if (cellG) cellG.textContent = pbG;
+  const cellH = document.getElementById('pb-h');
+  if (cellH) cellH.textContent = pbH;
+  const cellI = document.getElementById('pb-i');
+  if (cellI) cellI.textContent = pbI;
+  const cellL = document.getElementById('pb-l');
+  if (cellL) cellL.textContent = pbL;
+  const cellM = document.getElementById('pb-m');
+  if (cellM) cellM.textContent = pbM;
+  const cellN = document.getElementById('pb-n');
+  if (cellN) cellN.textContent = pbN;
+  const cellO = document.getElementById('pb-o');
+  if (cellO) cellO.textContent = pbO;
+  const cellQ1 = document.getElementById('pb-q1');
+  if (cellQ1) cellQ1.textContent = pbQ1;
+  const cellQ2 = document.getElementById('pb-q2');
+  if (cellQ2) cellQ2.textContent = pbQ2;
+  const cellQ3 = document.getElementById('pb-q3');
+  if (cellQ3) cellQ3.textContent = pbQ3;
+  const cellQ4 = document.getElementById('pb-q4');
+  if (cellQ4) cellQ4.textContent = pbQ4;
 });
