@@ -3405,6 +3405,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.getElementById('generate-report').addEventListener('click', () => {
   if (!window.reportData) {
+    // Si el usuario no ha presionado "Enviar" generamos los resultados
+    const form = document.getElementById('survey-form');
+    if (form) {
+      form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+    }
+  }
+  if (!window.reportData) {
     alert('Primero complete el formulario y presione Enviar.');
     return;
   }
@@ -3905,7 +3912,11 @@ document.getElementById('survey-form').addEventListener('submit', evt => {
     'A','B','C','E','F','G','H','I',
     'L','M','N','O','Q1','Q2','Q3','Q4'
   ];
-  const data = [
+  const pbData = [
+    pbA, pbB, pbC, pbE, pbF, pbG, pbH, pbI,
+    pbL, pbM, pbN, pbO, pbQ1, pbQ2, pbQ3, pbQ4
+  ];
+  const decatData = [
     decA, decB, decC, decE, decF, decG, decH, decI,
     decL, decM, decN, decO, decQ1, decQ2, decQ3, decQ4
   ];
@@ -3916,28 +3927,36 @@ document.getElementById('survey-form').addEventListener('submit', evt => {
       type: 'bar',
       data: {
         labels: labels,
-        datasets: [{
-          label: 'Decat',
-          data: data,
-          backgroundColor: 'rgba(54, 162, 235, 0.6)'
-        }]
+        datasets: [
+          {
+            label: 'PB',
+            data: pbData,
+            backgroundColor: 'rgba(255, 99, 132, 0.6)'
+          },
+          {
+            label: 'Decat',
+            data: decatData,
+            backgroundColor: 'rgba(54, 162, 235, 0.6)'
+          }
+        ]
       },
       options: {
         indexAxis: 'y',
         scales: {
-          x: { beginAtZero: true, max: 10 }
+          x: { beginAtZero: true, max: 20 }
         },
         plugins: {
           datalabels: {
             anchor: 'center',
             align: 'center',
-            formatter: v => (v * 10) + '%'
+            formatter: v => v
           }
         }
       }
     });
   } else {
-    window.resultsChart.data.datasets[0].data = data;
+    window.resultsChart.data.datasets[0].data = pbData;
+    window.resultsChart.data.datasets[1].data = decatData;
     window.resultsChart.update();
   }
 
