@@ -3823,6 +3823,7 @@ document.getElementById('survey-form').addEventListener('submit', evt => {
     decA, decB, decC, decE, decF, decG, decH, decI,
     decL, decM, decN, decO, decQ1, decQ2, decQ3, decQ4
   ];
+  Chart.register(ChartDataLabels);
   if (!window.resultsChart) {
     const ctx = document.getElementById('results-chart').getContext('2d');
     window.resultsChart = new Chart(ctx, {
@@ -3839,6 +3840,13 @@ document.getElementById('survey-form').addEventListener('submit', evt => {
         indexAxis: 'y',
         scales: {
           x: { beginAtZero: true, max: 10 }
+        },
+        plugins: {
+          datalabels: {
+            anchor: 'center',
+            align: 'center',
+            formatter: v => (v * 10) + '%'
+          }
         }
       }
     });
