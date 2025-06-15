@@ -3912,6 +3912,13 @@ document.getElementById('survey-form').addEventListener('submit', evt => {
     'A','B','C','E','F','G','H','I',
     'L','M','N','O','Q1','Q2','Q3','Q4'
   ];
+  const chartHeight = labels.length * 40;
+  const canvas = document.getElementById('results-chart');
+  if (canvas) canvas.height = chartHeight;
+  const leftLabels = document.querySelector('.left-labels');
+  if (leftLabels) leftLabels.style.height = chartHeight + 'px';
+  const rightLabels = document.querySelector('.right-labels');
+  if (rightLabels) rightLabels.style.height = chartHeight + 'px';
   const pbData = [
     pbA, pbB, pbC, pbE, pbF, pbG, pbH, pbI,
     pbL, pbM, pbN, pbO, pbQ1, pbQ2, pbQ3, pbQ4
