@@ -100,14 +100,12 @@ button#generate-report:hover {
 
 .chart-grid canvas {
     max-width: 500px;
-    height: 600px;
 }
 
 .labels {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 600px;
     font-size: 0.8em;
 }
 
