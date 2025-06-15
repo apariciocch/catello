@@ -3416,7 +3416,7 @@ document.getElementById('generate-report').addEventListener('click', () => {
     return;
   }
   const { personal, pb, decat } = window.reportData;
-  const doc = new docx.Document();
+  const doc = new docx.Document({ sections: [] });
   const P = docx.Paragraph;
   const H1 = level => new docx.Paragraph({ text: level, heading: docx.HeadingLevel.HEADING_1 });
 
