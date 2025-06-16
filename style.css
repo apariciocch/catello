@@ -103,3 +103,30 @@ button#generate-report:hover {
     max-width: 500px;
 }
 
+.tabla-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.tabla-container table {
+    border-collapse: collapse;
+    width: 48%;
+}
+
+.tabla-container th,
+.tabla-container td {
+    border: 1px solid #aaa;
+    padding: 8px;
+    text-align: center;
+}
+
+.tabla-container th {
+    background-color: #f2f2f2;
+}
+
+.chart-wrapper canvas {
+    max-width: 100%;
+}
+
