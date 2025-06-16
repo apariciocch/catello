@@ -3854,6 +3854,13 @@ document.getElementById('survey-form').addEventListener('submit', evt => {
   const cellQ4 = document.getElementById('pb-q4');
   if (cellQ4) cellQ4.textContent = pbQ4;
 
+  const newPbCells = ['a','b','c','e','f','g','h','i','l','m','n','o','q1','q2','q3','q4'];
+  const newPbValues = [pbA,pbB,pbC,pbE,pbF,pbG,pbH,pbI,pbL,pbM,pbN,pbO,pbQ1,pbQ2,pbQ3,pbQ4];
+  newPbCells.forEach((letter, idx) => {
+    const el = document.getElementById(`res-pb-${letter}`);
+    if (el) el.textContent = newPbValues[idx];
+  });
+
   function pbToDecat(pb) {
     return Math.min(10, Math.floor((pb - 1) / 3) + 1);
   }
@@ -3908,21 +3915,16 @@ document.getElementById('survey-form').addEventListener('submit', evt => {
   const dQ4 = document.getElementById('decat-q4');
   if (dQ4) dQ4.textContent = decQ4;
 
+  const newDecCells = ['a','b','c','e','f','g','h','i','l','m','n','o','q1','q2','q3','q4'];
+  const newDecValues = [decA,decB,decC,decE,decF,decG,decH,decI,decL,decM,decN,decO,decQ1,decQ2,decQ3,decQ4];
+  newDecCells.forEach((letter, idx) => {
+    const el = document.getElementById(`res-decat-${letter}`);
+    if (el) el.textContent = newDecValues[idx];
+  });
+
   const factorLetters = [
     'A','B','C','E','F','G','H','I',
     'L','M','N','O','Q1','Q2','Q3','Q4'
-  ];
-  const leftNames = [
-    'Soliloquia','Baja Cap.esc.','Debilidad Yo','Sumisión',
-    'Retraido','Superego debil','Timidez','Severidad',
-    'Confianza','Objetividad','Ingenuidad','Adec. Serena',
-    'Conservadurismo','Dep. Grupal','Indiferencia','Tranquilidad'
-  ];
-  const rightNames = [
-    'Sociabilidad','Alta Cap.esc.','Fuerza sup del Yo','Dominante',
-    'Impetuosidad','Superego fuerte','Audacia','Sensib. Emoc',
-    'Desconfianza','Subjetividad','Astucia','Propens. Culpabil.',
-    'Radicalismo','Autosuficiencia','Control','Tensión'
   ];
   const chartHeight = factorLetters.length * 40;
   const canvas = document.getElementById('results-chart');
@@ -3942,44 +3944,24 @@ document.getElementById('survey-form').addEventListener('submit', evt => {
       type: 'bar',
       data: {
         labels: factorLetters,
-        datasets: [
-          {
-            label: 'PB',
-            data: pbData,
-            backgroundColor: 'rgba(255, 99, 132, 0.6)'
-          },
-          {
-            label: 'Decat',
-            data: decatData,
-            backgroundColor: 'rgba(54, 162, 235, 0.6)'
-          }
-        ]
+        datasets: [{
+          label: 'PB',
+          data: pbData,
+          backgroundColor: 'rgba(54, 162, 235, 0.7)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        }]
       },
       options: {
         indexAxis: 'y',
         scales: {
-          x: { beginAtZero: true, max: 20 },
-          y: {
-            ticks: {
-              callback: (val, idx) => [
-                factorLetters[idx],
-                `${leftNames[idx]} | ${rightNames[idx]}`
-              ]
-            }
-          }
+          x: { beginAtZero: true, max: 20 }
         },
-        plugins: {
-          datalabels: {
-            anchor: 'center',
-            align: 'center',
-            formatter: v => v
-          }
-        }
+        plugins: { legend: { display: false } }
       }
     });
   } else {
     window.resultsChart.data.datasets[0].data = pbData;
-    window.resultsChart.data.datasets[1].data = decatData;
     window.resultsChart.update();
   }
 
