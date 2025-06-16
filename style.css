@@ -104,15 +104,20 @@ button#generate-report:hover {
 }
 
 .tabla-container {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     gap: 30px;
     margin-bottom: 40px;
+    align-items: start;
 }
 
 .tabla-container table {
     border-collapse: collapse;
-    width: 48%;
+    width: 100%;
+}
+
+#results-chart {
+    max-width: 400px;
 }
 
 .tabla-container th,
