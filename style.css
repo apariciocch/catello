@@ -88,7 +88,7 @@ button#generate-report:hover {
 }
 
 .chart-wrapper {
-    max-width: 1000px;
+    max-width: 600px;
     margin: 40px auto;
 }
 
@@ -106,17 +106,13 @@ button#generate-report:hover {
 .tabla-container {
     display: flex;
     justify-content: space-between;
-    gap: 20px;
+    gap: 30px;
     margin-bottom: 40px;
 }
 
 .tabla-container table {
     border-collapse: collapse;
-    width: 30%;
-}
-
-.tabla-container canvas {
-    width: 40%;
+    width: 48%;
 }
 
 .tabla-container th,
