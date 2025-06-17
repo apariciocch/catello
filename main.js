@@ -3944,13 +3944,22 @@ document.getElementById('survey-form').addEventListener('submit', evt => {
       type: 'bar',
       data: {
         labels: factorLetters,
-        datasets: [{
-          label: 'PB',
-          data: pbData,
-          backgroundColor: 'rgba(54, 162, 235, 0.7)',
-          borderColor: 'rgba(54, 162, 235, 1)',
-          borderWidth: 1
-        }]
+        datasets: [
+          {
+            label: 'PB',
+            data: pbData,
+            backgroundColor: 'rgba(54, 162, 235, 0.7)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+          },
+          {
+            label: 'Decat',
+            data: decatData,
+            backgroundColor: 'rgba(255, 99, 132, 0.7)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+          }
+        ]
       },
       options: {
         indexAxis: 'y',
@@ -3962,6 +3971,7 @@ document.getElementById('survey-form').addEventListener('submit', evt => {
     });
   } else {
     window.resultsChart.data.datasets[0].data = pbData;
+    window.resultsChart.data.datasets[1].data = decatData;
     window.resultsChart.update();
   }
 
