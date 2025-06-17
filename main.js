@@ -3366,10 +3366,6 @@ const questions = [
     ]
   }
 ];
-
-// Identificador de cliente OAuth para acceder a Google Drive
-const GOOGLE_CLIENT_ID =
-  '422931240525-c87t5qa8ba47s6c0klmrkii444knclub.apps.googleusercontent.com';
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("questions-container");
   questions.forEach(q => {
@@ -3407,8 +3403,19 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-function buildReportDoc(data) {
-  const { personal, pb, decat } = data;
+document.getElementById('generate-report').addEventListener('click', () => {
+  if (!window.reportData) {
+    // Si el usuario no ha presionado "Enviar" generamos los resultados
+    const form = document.getElementById('survey-form');
+    if (form) {
+      form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+    }
+  }
+  if (!window.reportData) {
+    alert('Primero complete el formulario y presione Enviar.');
+    return;
+  }
+  const { personal, pb, decat } = window.reportData;
   const doc = new docx.Document({ sections: [] });
   const P = docx.Paragraph;
   const H1 = level => new docx.Paragraph({ text: level, heading: docx.HeadingLevel.HEADING_1 });
@@ -3425,14 +3432,14 @@ function buildReportDoc(data) {
       new P(`Responsable Psicólogo: ${personal.responsable}`),
 
       H1('II. Motivo de Consulta'),
-      new P('Propósito de la evaluación: _____________________________________________'),
+      new P('Propósito de la evaluación: __________________________________________'),
 
       H1('III. Observación General de la Conducta'),
       new P('Apariencia física: __________________________________________'),
-      new P('Conducta durante la evaluación: _________________________________________'),
+      new P('Conducta durante la evaluación: __________________________________________'),
 
       H1('IV. Técnicas e Instrumentos Utilizados'),
-      new P('Enumeración de instrumentos: ____________________________________________'),
+      new P('Enumeración de instrumentos: __________________________________________'),
       new P('Entrevista'),
       new P('Observación'),
       new P('Test 16PF de Cattell'),
@@ -3472,24 +3479,6 @@ function buildReportDoc(data) {
     ]
   });
 
-  return doc;
-}
-
-document.getElementById('generate-report').addEventListener('click', () => {
-  if (!window.reportData) {
-    // Si el usuario no ha presionado "Enviar" generamos los resultados
-    const form = document.getElementById('survey-form');
-    if (form) {
-      form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
-    }
-  }
-  if (!window.reportData) {
-    alert('Primero complete el formulario y presione Enviar.');
-    return;
-  }
-  const doc = buildReportDoc(window.reportData);
-
-
   docx.Packer.toBlob(doc).then(blob => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -3498,52 +3487,6 @@ document.getElementById('generate-report').addEventListener('click', () => {
     a.click();
     URL.revokeObjectURL(url);
   });
-});
-
-async function initGapi() {
-  if (!window.gapiInitialized) {
-    await new Promise(res => gapi.load('client:auth2', res));
-    await gapi.client.init({
-      clientId: GOOGLE_CLIENT_ID,
-      scope: 'https://www.googleapis.com/auth/drive.file'
-    });
-    window.gapiInitialized = true;
-  }
-  if (!gapi.auth2.getAuthInstance().isSignedIn.get()) {
-    await gapi.auth2.getAuthInstance().signIn();
-  }
-}
-
-document.getElementById('save-drive').addEventListener('click', async () => {
-  if (!window.reportData) {
-    const form = document.getElementById('survey-form');
-    if (form) {
-      form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
-    }
-  }
-  if (!window.reportData) {
-    alert('Primero complete el formulario y presione Enviar.');
-    return;
-  }
-  await initGapi();
-  const doc = buildReportDoc(window.reportData);
-  const blob = await docx.Packer.toBlob(doc);
-  const metadata = {
-    name: 'informe.docx',
-    mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-  };
-  const accessToken = gapi.auth.getToken().access_token;
-  const form = new FormData();
-  form.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
-  form.append('file', blob);
-  fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart', {
-    method: 'POST',
-    headers: new Headers({ 'Authorization': 'Bearer ' + accessToken }),
-    body: form
-  })
-    .then(r => r.ok ? r.json() : Promise.reject(r.statusText))
-    .then(() => alert('Archivo guardado en Google Drive'))
-    .catch(err => alert('Error al guardar en Drive: ' + err));
 });
 
 // Calcular Factor PB para A según las respuestas
