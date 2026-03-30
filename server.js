@@ -2,10 +2,10 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
-const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const OLLAMA_API = 'http://localhost:11434/api/generate';
 
 // Middleware
 app.use(cors());
@@ -13,9 +13,6 @@ app.use(express.json());
 
 // Servir archivos estáticos (HTML, CSS, JS)
 app.use(express.static(path.join(__dirname)));
-
-// Inicializar cliente de Gemini
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 // Endpoint para generar interpretación
 app.post('/api/analyze', async (req, res) => {
