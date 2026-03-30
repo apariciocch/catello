@@ -3405,7 +3405,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.getElementById('generate-report').addEventListener('click', () => {
   if (!window.reportData) {
-    // Si el usuario no ha presionado "Enviar" generamos los resultados
     const form = document.getElementById('survey-form');
     if (form) {
       form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
@@ -3499,7 +3498,6 @@ document.getElementById('generate-report').addEventListener('click', () => {
         high: 'Tenso y ansioso. Altamente motivado pero estresado.'
       }
     };
-
     const levels = interpretations[factor] || {};
     if (decat <= 3) return levels.low || '';
     if (decat >= 8) return levels.high || '';
@@ -3508,302 +3506,117 @@ document.getElementById('generate-report').addEventListener('click', () => {
 
   const { personal, pb, decat } = window.reportData;
   const doc = new docx.Document({ sections: [] });
+  const P = docx.Paragraph;
 
-  // Crear tabla con interpretaciones de factores
-  const factorRows = [
-    ['Factor', 'PB', 'Decat', 'Interpretación']
+  const children = [
+    new P({
+      text: 'INFORME PSICOLÓGICO - TEST 16PF',
+      alignment: docx.AlignmentType.CENTER,
+      spacing: { line: 360, before: 200, after: 200 },
+      size: 28,
+      bold: true
+    }),
+
+    new P({
+      text: 'I. DATOS GENERALES',
+      heading: docx.HeadingLevel.HEADING_1,
+      spacing: { before: 200, after: 100 }
+    }),
+    new P(`Nombre y apellidos: ${personal.nombre}`),
+    new P(`Edad: ${personal.edad}`),
+    new P(`Sexo: ${personal.sexo === 'm' ? 'Masculino' : personal.sexo === 'f' ? 'Femenino' : 'Otro'}`),
+    new P(`Grado Educativo: ${personal.grado}`),
+    new P(`Fecha de evaluación: ${personal.fecha}`),
+    new P(`Responsable: ${personal.responsable}`),
+
+    new P({
+      text: 'II. TÉCNICAS UTILIZADAS',
+      heading: docx.HeadingLevel.HEADING_1,
+      spacing: { before: 200, after: 100 }
+    }),
+    new P('• Test 16PF (Cuestionario de Factores de Personalidad de Cattell)'),
+    new P('• Entrevista clínica'),
+    new P('• Observación de conducta'),
+
+    new P({
+      text: 'III. RESULTADOS DEL TEST 16PF',
+      heading: docx.HeadingLevel.HEADING_1,
+      spacing: { before: 200, after: 100 }
+    }),
+    new P(`A (Afabilidad) - PB: ${pb.A} | Decat: ${decat.A}`),
+    new P(`   ${getInterpretation('A', decat.A)}`),
+    new P(`B (Razonamiento) - PB: ${pb.B} | Decat: ${decat.B}`),
+    new P(`   ${getInterpretation('B', decat.B)}`),
+    new P(`C (Estabilidad Emocional) - PB: ${pb.C} | Decat: ${decat.C}`),
+    new P(`   ${getInterpretation('C', decat.C)}`),
+    new P(`E (Dominancia) - PB: ${pb.E} | Decat: ${decat.E}`),
+    new P(`   ${getInterpretation('E', decat.E)}`),
+    new P(`F (Animación) - PB: ${pb.F} | Decat: ${decat.F}`),
+    new P(`   ${getInterpretation('F', decat.F)}`),
+    new P(`G (Atención a Normas) - PB: ${pb.G} | Decat: ${decat.G}`),
+    new P(`   ${getInterpretation('G', decat.G)}`),
+    new P(`H (Atrevimiento) - PB: ${pb.H} | Decat: ${decat.H}`),
+    new P(`   ${getInterpretation('H', decat.H)}`),
+    new P(`I (Sensibilidad) - PB: ${pb.I} | Decat: ${decat.I}`),
+    new P(`   ${getInterpretation('I', decat.I)}`),
+    new P(`L (Vigilancia) - PB: ${pb.L} | Decat: ${decat.L}`),
+    new P(`   ${getInterpretation('L', decat.L)}`),
+    new P(`M (Abstracción) - PB: ${pb.M} | Decat: ${decat.M}`),
+    new P(`   ${getInterpretation('M', decat.M)}`),
+    new P(`N (Privacidad) - PB: ${pb.N} | Decat: ${decat.N}`),
+    new P(`   ${getInterpretation('N', decat.N)}`),
+    new P(`O (Aprensión) - PB: ${pb.O} | Decat: ${decat.O}`),
+    new P(`   ${getInterpretation('O', decat.O)}`),
+    new P(`Q1 (Apertura al Cambio) - PB: ${pb.Q1} | Decat: ${decat.Q1}`),
+    new P(`   ${getInterpretation('Q1', decat.Q1)}`),
+    new P(`Q2 (Autosuficiencia) - PB: ${pb.Q2} | Decat: ${decat.Q2}`),
+    new P(`   ${getInterpretation('Q2', decat.Q2)}`),
+    new P(`Q3 (Perfeccionismo) - PB: ${pb.Q3} | Decat: ${decat.Q3}`),
+    new P(`   ${getInterpretation('Q3', decat.Q3)}`),
+    new P(`Q4 (Tensión) - PB: ${pb.Q4} | Decat: ${decat.Q4}`),
+    new P(`   ${getInterpretation('Q4', decat.Q4)}`),
+
+    new P({
+      text: 'IV. FORTALEZAS IDENTIFICADAS',
+      heading: docx.HeadingLevel.HEADING_1,
+      spacing: { before: 200, after: 100 }
+    }),
+    ...['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'N', 'O', 'Q1', 'Q2', 'Q3', 'Q4']
+      .filter(f => decat[f] >= 8)
+      .map(f => new P(`• Factor ${f}: ${getInterpretation(f, decat[f])}`)),
+
+    new P({
+      text: 'V. ÁREAS DE DESARROLLO',
+      heading: docx.HeadingLevel.HEADING_1,
+      spacing: { before: 200, after: 100 }
+    }),
+    ...['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'N', 'O', 'Q1', 'Q2', 'Q3', 'Q4']
+      .filter(f => decat[f] <= 3)
+      .map(f => new P(`• Factor ${f}: ${getInterpretation(f, decat[f])}`)),
+
+    new P({
+      text: 'VI. RECOMENDACIONES',
+      heading: docx.HeadingLevel.HEADING_1,
+      spacing: { before: 200, after: 100 }
+    }),
+    new P('_________________________________________________________________'),
+    new P('_________________________________________________________________'),
+    new P('_________________________________________________________________'),
+
+    new P({
+      text: 'VII. CONCLUSIONES',
+      heading: docx.HeadingLevel.HEADING_1,
+      spacing: { before: 200, after: 100 }
+    }),
+    new P('_________________________________________________________________'),
+    new P('_________________________________________________________________'),
+
+    new P({ text: '', spacing: { before: 300, after: 100 } }),
+    new P(`${personal.responsable}`, { alignment: docx.AlignmentType.CENTER, bold: true }),
+    new P('Profesional Responsable', { alignment: docx.AlignmentType.CENTER })
   ];
-  const factorOrder = ['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'N', 'O', 'Q1', 'Q2', 'Q3', 'Q4'];
-  const factorNames = {
-    'A': 'Afabilidad', 'B': 'Razonamiento', 'C': 'Estabilidad Emocional', 'E': 'Dominancia',
-    'F': 'Animación', 'G': 'Atención a Normas', 'H': 'Atrevimiento', 'I': 'Sensibilidad',
-    'L': 'Vigilancia', 'M': 'Abstracción', 'N': 'Privacidad', 'O': 'Aprensión',
-    'Q1': 'Apertura al Cambio', 'Q2': 'Autosuficiencia', 'Q3': 'Perfeccionismo', 'Q4': 'Tensión'
-  };
 
-  factorOrder.forEach(f => {
-    factorRows.push([
-      `${f} - ${factorNames[f]}`,
-      pb[f].toString(),
-      decat[f].toString(),
-      getInterpretation(f, decat[f])
-    ]);
-  });
-
-  doc.addSection({
-    children: [
-      // PORTADA
-      new docx.Paragraph({
-        text: 'INFORME PSICOLÓGICO',
-        alignment: docx.AlignmentType.CENTER,
-        spacing: { line: 360, before: 200, after: 200 },
-        size: 28,
-        bold: true,
-        color: '1a2a4a'
-      }),
-      new docx.Paragraph({
-        text: 'Evaluación con Test 16PF de Cattell',
-        alignment: docx.AlignmentType.CENTER,
-        spacing: { line: 240, after: 400 },
-        size: 20,
-        color: '4a5a8a'
-      }),
-
-      // I. DATOS GENERALES
-      new docx.Paragraph({
-        text: 'I. DATOS GENERALES',
-        heading: docx.HeadingLevel.HEADING_1,
-        spacing: { before: 200, after: 100 },
-        size: 24,
-        bold: true,
-        color: '1a2a4a'
-      }),
-      new docx.Table({
-        rows: [
-          new docx.TableRow({
-            cells: [
-              new docx.TableCell({ children: [new docx.Paragraph('Nombre:')] }),
-              new docx.TableCell({ children: [new docx.Paragraph(personal.nombre)] })
-            ]
-          }),
-          new docx.TableRow({
-            cells: [
-              new docx.TableCell({ children: [new docx.Paragraph('Edad:')] }),
-              new docx.TableCell({ children: [new docx.Paragraph(personal.edad)] })
-            ]
-          }),
-          new docx.TableRow({
-            cells: [
-              new docx.TableCell({ children: [new docx.Paragraph('Sexo:')] }),
-              new docx.TableCell({ children: [new docx.Paragraph(personal.sexo === 'm' ? 'Masculino' : personal.sexo === 'f' ? 'Femenino' : 'Otro')] })
-            ]
-          }),
-          new docx.TableRow({
-            cells: [
-              new docx.TableCell({ children: [new docx.Paragraph('Grado Educativo:')] }),
-              new docx.TableCell({ children: [new docx.Paragraph(personal.grado)] })
-            ]
-          }),
-          new docx.TableRow({
-            cells: [
-              new docx.TableCell({ children: [new docx.Paragraph('Fecha de Evaluación:')] }),
-              new docx.TableCell({ children: [new docx.Paragraph(personal.fecha)] })
-            ]
-          }),
-          new docx.TableRow({
-            cells: [
-              new docx.TableCell({ children: [new docx.Paragraph('Psicólogo/a Responsable:')] }),
-              new docx.TableCell({ children: [new docx.Paragraph(personal.responsable)] })
-            ]
-          })
-        ],
-        width: { size: 100, type: docx.WidthType.PERCENTAGE }
-      }),
-
-      new docx.Paragraph({ text: '', spacing: { after: 200 } }),
-
-      // II. MOTIVO DE CONSULTA
-      new docx.Paragraph({
-        text: 'II. MOTIVO DE CONSULTA',
-        heading: docx.HeadingLevel.HEADING_1,
-        spacing: { before: 200, after: 100 },
-        size: 24,
-        bold: true,
-        color: '1a2a4a'
-      }),
-      new docx.Paragraph({
-        text: '_________________________________________________________________________________________________________________________________',
-        spacing: { after: 100 }
-      }),
-
-      // III. TÉCNICAS E INSTRUMENTOS
-      new docx.Paragraph({
-        text: 'III. TÉCNICAS E INSTRUMENTOS UTILIZADOS',
-        heading: docx.HeadingLevel.HEADING_1,
-        spacing: { before: 200, after: 100 },
-        size: 24,
-        bold: true,
-        color: '1a2a4a'
-      }),
-      new docx.Paragraph('• Test 16PF (Cuestionario de Factores de Personalidad de Cattell)'),
-      new docx.Paragraph('• Entrevista clínica'),
-      new docx.Paragraph('• Observación de conducta'),
-
-      new docx.Paragraph({ text: '', spacing: { after: 200 } }),
-
-      // IV. RESULTADOS
-      new docx.Paragraph({
-        text: 'IV. RESULTADOS DEL TEST 16PF',
-        heading: docx.HeadingLevel.HEADING_1,
-        spacing: { before: 200, after: 100 },
-        size: 24,
-        bold: true,
-        color: '1a2a4a'
-      }),
-      new docx.Table({
-        rows: factorRows.map(row =>
-          new docx.TableRow({
-            cells: row.map(cell => 
-              new docx.TableCell({
-                children: [new docx.Paragraph(cell)],
-                shading: row === factorRows[0] ? { fill: 'c3cfe2' } : {}
-              })
-            )
-          })
-        ),
-        width: { size: 100, type: docx.WidthType.PERCENTAGE }
-      }),
-
-      new docx.Paragraph({ text: '', spacing: { after: 200 } }),
-
-      // V. ANÁLISIS E INTERPRETACIÓN
-      new docx.Paragraph({
-        text: 'V. ANÁLISIS E INTERPRETACIÓN',
-        heading: docx.HeadingLevel.HEADING_1,
-        spacing: { before: 200, after: 100 },
-        size: 24,
-        bold: true,
-        color: '1a2a4a'
-      }),
-      new docx.Paragraph({
-        text: 'Perfil General',
-        heading: docx.HeadingLevel.HEADING_2,
-        spacing: { before: 100, after: 50 },
-        size: 20,
-        bold: true
-      }),
-      new docx.Paragraph({
-        text: `El evaluado presenta un perfil de personalidad caracterizado por los principales factores elevados (8-10) y bajos (1-3) que se detallan a continuación. Este análisis ofrece una comprensión integral de su estructura de personalidad, estilos de afrontamiento y potenciales áreas de desarrollo.`,
-        spacing: { after: 100 }
-      }),
-
-      new docx.Paragraph({
-        text: 'Dimensiones Principales',
-        heading: docx.HeadingLevel.HEADING_2,
-        spacing: { before: 100, after: 50 },
-        size: 20,
-        bold: true
-      }),
-      new docx.Paragraph({
-        text: `📊 Extraversión: Nivel ${decat.A + decat.E + decat.F + decat.H} (de 40)`,
-        spacing: { after: 50 }
-      }),
-      new docx.Paragraph({
-        text: `La persona muestra un nivel de extraversión que influye en su forma de relacionarse con el entorno, su energía social y disposición a buscar estimulación externa.`,
-        spacing: { after: 100 }
-      }),
-      new docx.Paragraph({
-        text: `😰 Adaptación Emocional: Nivel ${decat.C + (11 - decat.O) + decat.Q4} (de 30)`,
-        spacing: { after: 50 }
-      }),
-      new docx.Paragraph({
-        text: `A nivel emocional, el evaluado experimenta un nivel de adaptación que refleja su estabilidad, confianza y capacidad para manejar el estrés y la presión.`,
-        spacing: { after: 100 }
-      }),
-
-      new docx.Paragraph({
-        text: 'Aspectos Conductuales Clave',
-        heading: docx.HeadingLevel.HEADING_2,
-        spacing: { before: 100, after: 50 },
-        size: 20,
-        bold: true
-      }),
-
-      // Responsabilidad
-      ...(decat.G >= 8 ? [
-        new docx.Paragraph(`✓ Responsabilidad: En el rango alto (DT ${decat.G}), el evaluado demuestra alto sentido del deber, cumplimiento normativo y confiabilidad.`)
-      ] : decat.G <= 3 ? [
-        new docx.Paragraph(`✗ Responsabilidad: En el rango bajo (DT ${decat.G}), el evaluado puede presentar mayor flexibilidad pero menor énfasis en normas y obligaciones.`)
-      ] : [
-        new docx.Paragraph(`⚖ Responsabilidad: Nivel moderado (DT ${decat.G}), el evaluado balancea responsabilidad con flexibilidad.`)
-      ]),
-
-      new docx.Paragraph({ text: '', spacing: { after: 100 } }),
-
-      // VI. FORTALEZAS Y ÁREAS DE DESARROLLO
-      new docx.Paragraph({
-        text: 'VI. FORTALEZAS Y ÁREAS DE DESARROLLO',
-        heading: docx.HeadingLevel.HEADING_1,
-        spacing: { before: 200, after: 100 },
-        size: 24,
-        bold: true,
-        color: '1a2a4a'
-      }),
-      new docx.Paragraph({
-        text: 'Fortalezas Identificadas:',
-        bold: true,
-        spacing: { before: 50, after: 50 }
-      }),
-      ...factorOrder.filter(f => decat[f] >= 8).map(f =>
-        new docx.Paragraph(
-          `• ${factorNames[f]}: ${getInterpretation(f, decat[f])}`,
-          { spacing: { after: 30 } }
-        )
-      ),
-
-      new docx.Paragraph({ text: '', spacing: { after: 100 } }),
-
-      new docx.Paragraph({
-        text: 'Áreas de Desarrollo:',
-        bold: true,
-        spacing: { before: 50, after: 50 }
-      }),
-      ...factorOrder.filter(f => decat[f] <= 3).map(f =>
-        new docx.Paragraph(
-          `• ${factorNames[f]}: ${getInterpretation(f, decat[f])}`,
-          { spacing: { after: 30 } }
-        )
-      ),
-
-      new docx.Paragraph({ text: '', spacing: { after: 200 } }),
-
-      // VII. RECOMENDACIONES
-      new docx.Paragraph({
-        text: 'VII. RECOMENDACIONES',
-        heading: docx.HeadingLevel.HEADING_1,
-        spacing: { before: 200, after: 100 },
-        size: 24,
-        bold: true,
-        color: '1a2a4a'
-      }),
-      new docx.Paragraph('_________________________________________________________________________________________________________________________________'),
-      new docx.Paragraph('_________________________________________________________________________________________________________________________________'),
-      new docx.Paragraph('_________________________________________________________________________________________________________________________________'),
-
-      new docx.Paragraph({ text: '', spacing: { after: 200 } }),
-
-      // VIII. CONCLUSIONES
-      new docx.Paragraph({
-        text: 'VIII. CONCLUSIONES',
-        heading: docx.HeadingLevel.HEADING_1,
-        spacing: { before: 200, after: 100 },
-        size: 24,
-        bold: true,
-        color: '1a2a4a'
-      }),
-      new docx.Paragraph('_________________________________________________________________________________________________________________________________'),
-      new docx.Paragraph('_________________________________________________________________________________________________________________________________'),
-
-      new docx.Paragraph({ text: '', spacing: { after: 300 } }),
-
-      // FIRMA
-      new docx.Paragraph({
-        text: '_________________________',
-        alignment: docx.AlignmentType.CENTER,
-        spacing: { after: 50 }
-      }),
-      new docx.Paragraph({
-        text: `${personal.responsable}`,
-        alignment: docx.AlignmentType.CENTER,
-        bold: true
-      }),
-      new docx.Paragraph({
-        text: 'Profesional Responsable',
-        alignment: docx.AlignmentType.CENTER,
-        size: 18
-      })
-    ]
-  });
+  doc.addSection({ children });
 
   docx.Packer.toBlob(doc).then(blob => {
     const url = URL.createObjectURL(blob);
