@@ -1,19 +1,21 @@
 require('dotenv').config();
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
-const { OpenAI } = require('openai');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-// Inicializar cliente de OpenAI
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
-});
+// Servir archivos estáticos (HTML, CSS, JS)
+app.use(express.static(path.join(__dirname)));
+
+// Inicializar cliente de Gemini
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 // Endpoint para generar interpretación
 app.post('/api/analyze', async (req, res) => {
@@ -64,17 +66,10 @@ Una conclusión profesional que integre todo el análisis.
 
 Mantén un tono profesional, específico y basado en los datos del test.`;
 
-    // Llamar a OpenAI
-    const message = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo',
-      messages: [
-        { role: 'user', content: prompt }
-      ],
-      temperature: 0.7,
-      max_tokens: 2000
-    });
-
-    const interpretation = message.choices[0].message.content;
+    // Llamar a Gemini
+    const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+    const result = await model.generateContent(prompt);
+    const interpretation = result.response.text();
 
     res.json({ 
       success: true, 

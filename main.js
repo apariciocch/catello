@@ -3636,9 +3636,8 @@ let reportDataCache = null;
 // Función para llamar al servidor (que a su vez llama a OpenAI de forma segura)
 async function callOpenAIServer(personal, pb, decat) {
   try {
-    // Usar el mismo hostname que el frontend (funciona en localhost y URLs remotas)
-    const apiUrl = `http://${window.location.hostname}:3001/api/analyze`;
-    const response = await fetch(apiUrl, {
+    // Usar ruta relativa (mismo servidor, puerto 3000)
+    const response = await fetch('/api/analyze', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -3704,7 +3703,7 @@ document.getElementById('generate-report').addEventListener('click', async () =>
     document.querySelector('.form-group').style.display = 'flex';
     modalP.forEach(p => p.style.display = 'block');
   } catch (error) {
-    alert('Error: ' + error.message + '\n\n¿Está el servidor corriendo en puerto 3001?\nEjecuta: npm install && npm start');
+    alert('Error: ' + error.message + '\n\n¿Está el servidor corriendo?\nEjecuta: npm start');
     document.getElementById('apiKeyModal').classList.remove('active');
     document.getElementById('loadingSpinner').classList.remove('active');
     document.querySelector('.modal-buttons').style.display = 'flex';
