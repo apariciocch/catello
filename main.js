@@ -3938,8 +3938,9 @@ document.getElementById('survey-form').addEventListener('submit', evt => {
     decL, decM, decN, decO, decQ1, decQ2, decQ3, decQ4
   ];
   Chart.register(ChartDataLabels);
-  if (!window.resultsChart) {
-    const ctx = document.getElementById('results-chart').getContext('2d');
+  const resultsCanvas = document.getElementById('results-chart');
+  if (resultsCanvas && !window.resultsChart) {
+    const ctx = resultsCanvas.getContext('2d');
     window.resultsChart = new Chart(ctx, {
       type: 'bar',
       data: {
@@ -3979,8 +3980,9 @@ document.getElementById('survey-form').addEventListener('submit', evt => {
     pbA, pbB, pbC, pbE, pbF, pbG, pbH, pbI,
     pbL, pbM, pbN, pbO, pbQ1, pbQ2, pbQ3, pbQ4
   ];
-  if (!window.perfilChart) {
-    const perfilCtx = document.getElementById('perfil-chart').getContext('2d');
+  const perfilCanvas = document.getElementById('perfil-chart');
+  if (perfilCanvas && !window.perfilChart) {
+    const perfilCtx = perfilCanvas.getContext('2d');
     window.perfilChart = new Chart(perfilCtx, {
       type: 'line',
       data: {
