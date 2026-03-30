@@ -3415,67 +3415,393 @@ document.getElementById('generate-report').addEventListener('click', () => {
     alert('Primero complete el formulario y presione Enviar.');
     return;
   }
+
+  function getInterpretation(factor, decat) {
+    const interpretations = {
+      'A': {
+        low: 'Reservado, crítico y distante. Prefiere trabajar solo.',
+        mid: 'Sencillo y cordial en sus relaciones sociales.',
+        high: 'Afable y comprensivo. Facilita las relaciones interpersonales.'
+      },
+      'B': {
+        low: 'Razonamiento concreto. Pensamiento practicista.',
+        mid: 'Capacidad de razonamiento moderada.',
+        high: 'Razonamiento abstracto. Capacidad analítica elevada.'
+      },
+      'C': {
+        low: 'Emocionalmente inestable. Cambios de humor frecuentes.',
+        mid: 'Estabilidad emocional moderada.',
+        high: 'Emocionalmente estable, maduro y realista.'
+      },
+      'E': {
+        low: 'Sumiso y deferente. Acepta fácilmente la autoridad.',
+        mid: 'Equilibrio entre independencia y conformidad.',
+        high: 'Dominante y asertivo. Busca influir en otros.'
+      },
+      'F': {
+        low: 'Serio y reflexivo. Presenta una actitud cautelosa.',
+        mid: 'Moderadamente entusiasta y activo.',
+        high: 'Entusiasta, optimista y energético.'
+      },
+      'G': {
+        low: 'Despreocupado, flexible. Poco consciente de las normas.',
+        mid: 'Responsable modero respeto a las normas.',
+        high: 'Responsable, confiable y consciente de las reglas.'
+      },
+      'H': {
+        low: 'Tímido y cauteloso. Evita situaciones sociales.',
+        mid: 'Moderadamente social y audaz.',
+        high: 'Socialmente audaz. Cómodo en situaciones nuevas.'
+      },
+      'I': {
+        low: 'Realista y duro. Orientado a lo práctico.',
+        mid: 'Balance entre practicidad y sensibilidad.',
+        high: 'Sensible y sentimental. Valora los aspectos emocionales.'
+      },
+      'L': {
+        low: 'Confiado y abierto. Asume lo mejor de los demás.',
+        mid: 'Moderadamente cauteloso en sus relaciones.',
+        high: 'Suspicaz y vigilante. Desconfiado de las intenciones.'
+      },
+      'M': {
+        low: 'Práctico y realista. Pensamiento enfocado en lo concreto.',
+        mid: 'Balance entre imaginación y practicidad.',
+        high: 'Imaginativo y abstracto. Creativo e idealista.'
+      },
+      'N': {
+        low: 'Espontáneo y franco. Expresa sus sentimientos fácilmente.',
+        mid: 'Balance entre espontaneidad y discreción.',
+        high: 'Discreto y astuto. Cuidadoso con lo que revela.'
+      },
+      'O': {
+        low: 'Seguro de sí mismo. Confianza en sus capacidades.',
+        mid: 'Moderada confianza en sí mismo.',
+        high: 'Aprensivo e inseguro. Propenso a la culpa y preocupación.'
+      },
+      'Q1': {
+        low: 'Conservador y tradicional. Prefiere lo establecido.',
+        mid: 'Moderadamente abierto al cambio.',
+        high: 'Abierto al cambio. Cuestiona valores tradicionales.'
+      },
+      'Q2': {
+        low: 'Gregario y dependiente. Necesita apoyo de otros.',
+        mid: 'Balance entre necesidad de grupo e independencia.',
+        high: 'Autosuficiente e independiente. Resuelve sus propios problemas.'
+      },
+      'Q3': {
+        low: 'Desorganizado y relajado. No se enfoca en detalles.',
+        mid: 'Moderadamente organizado y disciplinado.',
+        high: 'Perfeccionista y controlado. Muy organizado.'
+      },
+      'Q4': {
+        low: 'Relajado y tranquilo. Poco propenso a la tensión.',
+        mid: 'Moderadamente tenso y motivado.',
+        high: 'Tenso y ansioso. Altamente motivado pero estresado.'
+      }
+    };
+
+    const levels = interpretations[factor] || {};
+    if (decat <= 3) return levels.low || '';
+    if (decat >= 8) return levels.high || '';
+    return levels.mid || '';
+  }
+
   const { personal, pb, decat } = window.reportData;
   const doc = new docx.Document({ sections: [] });
-  const P = docx.Paragraph;
-  const H1 = level => new docx.Paragraph({ text: level, heading: docx.HeadingLevel.HEADING_1 });
+
+  // Crear tabla con interpretaciones de factores
+  const factorRows = [
+    ['Factor', 'PB', 'Decat', 'Interpretación']
+  ];
+  const factorOrder = ['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'N', 'O', 'Q1', 'Q2', 'Q3', 'Q4'];
+  const factorNames = {
+    'A': 'Afabilidad', 'B': 'Razonamiento', 'C': 'Estabilidad Emocional', 'E': 'Dominancia',
+    'F': 'Animación', 'G': 'Atención a Normas', 'H': 'Atrevimiento', 'I': 'Sensibilidad',
+    'L': 'Vigilancia', 'M': 'Abstracción', 'N': 'Privacidad', 'O': 'Aprensión',
+    'Q1': 'Apertura al Cambio', 'Q2': 'Autosuficiencia', 'Q3': 'Perfeccionismo', 'Q4': 'Tensión'
+  };
+
+  factorOrder.forEach(f => {
+    factorRows.push([
+      `${f} - ${factorNames[f]}`,
+      pb[f].toString(),
+      decat[f].toString(),
+      getInterpretation(f, decat[f])
+    ]);
+  });
 
   doc.addSection({
     children: [
-      H1('I. Datos Generales'),
-      new P(`Nombre y apellidos: ${personal.nombre}`),
-      new P('Fecha de nacimiento: ______________________________'),
-      new P(`Edad: ${personal.edad}`),
-      new P(`Sexo: ${personal.sexo}`),
-      new P(`Grado Educativo: ${personal.grado}`),
-      new P(`Fecha de evaluación  informe: ${personal.fecha}`),
-      new P(`Responsable Psicólogo: ${personal.responsable}`),
+      // PORTADA
+      new docx.Paragraph({
+        text: 'INFORME PSICOLÓGICO',
+        alignment: docx.AlignmentType.CENTER,
+        spacing: { line: 360, before: 200, after: 200 },
+        size: 28,
+        bold: true,
+        color: '1a2a4a'
+      }),
+      new docx.Paragraph({
+        text: 'Evaluación con Test 16PF de Cattell',
+        alignment: docx.AlignmentType.CENTER,
+        spacing: { line: 240, after: 400 },
+        size: 20,
+        color: '4a5a8a'
+      }),
 
-      H1('II. Motivo de Consulta'),
-      new P('Propósito de la evaluación: __________________________________________'),
+      // I. DATOS GENERALES
+      new docx.Paragraph({
+        text: 'I. DATOS GENERALES',
+        heading: docx.HeadingLevel.HEADING_1,
+        spacing: { before: 200, after: 100 },
+        size: 24,
+        bold: true,
+        color: '1a2a4a'
+      }),
+      new docx.Table({
+        rows: [
+          new docx.TableRow({
+            cells: [
+              new docx.TableCell({ children: [new docx.Paragraph('Nombre:')] }),
+              new docx.TableCell({ children: [new docx.Paragraph(personal.nombre)] })
+            ]
+          }),
+          new docx.TableRow({
+            cells: [
+              new docx.TableCell({ children: [new docx.Paragraph('Edad:')] }),
+              new docx.TableCell({ children: [new docx.Paragraph(personal.edad)] })
+            ]
+          }),
+          new docx.TableRow({
+            cells: [
+              new docx.TableCell({ children: [new docx.Paragraph('Sexo:')] }),
+              new docx.TableCell({ children: [new docx.Paragraph(personal.sexo === 'm' ? 'Masculino' : personal.sexo === 'f' ? 'Femenino' : 'Otro')] })
+            ]
+          }),
+          new docx.TableRow({
+            cells: [
+              new docx.TableCell({ children: [new docx.Paragraph('Grado Educativo:')] }),
+              new docx.TableCell({ children: [new docx.Paragraph(personal.grado)] })
+            ]
+          }),
+          new docx.TableRow({
+            cells: [
+              new docx.TableCell({ children: [new docx.Paragraph('Fecha de Evaluación:')] }),
+              new docx.TableCell({ children: [new docx.Paragraph(personal.fecha)] })
+            ]
+          }),
+          new docx.TableRow({
+            cells: [
+              new docx.TableCell({ children: [new docx.Paragraph('Psicólogo/a Responsable:')] }),
+              new docx.TableCell({ children: [new docx.Paragraph(personal.responsable)] })
+            ]
+          })
+        ],
+        width: { size: 100, type: docx.WidthType.PERCENTAGE }
+      }),
 
-      H1('III. Observación General de la Conducta'),
-      new P('Apariencia física: __________________________________________'),
-      new P('Conducta durante la evaluación: __________________________________________'),
+      new docx.Paragraph({ text: '', spacing: { after: 200 } }),
 
-      H1('IV. Técnicas e Instrumentos Utilizados'),
-      new P('Enumeración de instrumentos: __________________________________________'),
-      new P('Entrevista'),
-      new P('Observación'),
-      new P('Test 16PF de Cattell'),
+      // II. MOTIVO DE CONSULTA
+      new docx.Paragraph({
+        text: 'II. MOTIVO DE CONSULTA',
+        heading: docx.HeadingLevel.HEADING_1,
+        spacing: { before: 200, after: 100 },
+        size: 24,
+        bold: true,
+        color: '1a2a4a'
+      }),
+      new docx.Paragraph({
+        text: '_________________________________________________________________________________________________________________________________',
+        spacing: { after: 100 }
+      }),
 
-      H1('V. Resultados'),
-      new P(`A PB:${pb.A} Decat:${decat.A}`),
-      new P(`B PB:${pb.B} Decat:${decat.B}`),
-      new P(`C PB:${pb.C} Decat:${decat.C}`),
-      new P(`E PB:${pb.E} Decat:${decat.E}`),
-      new P(`F PB:${pb.F} Decat:${decat.F}`),
-      new P(`G PB:${pb.G} Decat:${decat.G}`),
-      new P(`H PB:${pb.H} Decat:${decat.H}`),
-      new P(`I PB:${pb.I} Decat:${decat.I}`),
-      new P(`L PB:${pb.L} Decat:${decat.L}`),
-      new P(`M PB:${pb.M} Decat:${decat.M}`),
-      new P(`N PB:${pb.N} Decat:${decat.N}`),
-      new P(`O PB:${pb.O} Decat:${decat.O}`),
-      new P(`Q1 PB:${pb.Q1} Decat:${decat.Q1}`),
-      new P(`Q2 PB:${pb.Q2} Decat:${decat.Q2}`),
-      new P(`Q3 PB:${pb.Q3} Decat:${decat.Q3}`),
-      new P(`Q4 PB:${pb.Q4} Decat:${decat.Q4}`),
+      // III. TÉCNICAS E INSTRUMENTOS
+      new docx.Paragraph({
+        text: 'III. TÉCNICAS E INSTRUMENTOS UTILIZADOS',
+        heading: docx.HeadingLevel.HEADING_1,
+        spacing: { before: 200, after: 100 },
+        size: 24,
+        bold: true,
+        color: '1a2a4a'
+      }),
+      new docx.Paragraph('• Test 16PF (Cuestionario de Factores de Personalidad de Cattell)'),
+      new docx.Paragraph('• Entrevista clínica'),
+      new docx.Paragraph('• Observación de conducta'),
 
-      H1('VI. Integración de Resultados'),
-      new P('____________________________________________________________'),
+      new docx.Paragraph({ text: '', spacing: { after: 200 } }),
 
-      H1('VII. Conclusiones'),
-      new P('____________________________________________________________'),
+      // IV. RESULTADOS
+      new docx.Paragraph({
+        text: 'IV. RESULTADOS DEL TEST 16PF',
+        heading: docx.HeadingLevel.HEADING_1,
+        spacing: { before: 200, after: 100 },
+        size: 24,
+        bold: true,
+        color: '1a2a4a'
+      }),
+      new docx.Table({
+        rows: factorRows.map(row =>
+          new docx.TableRow({
+            cells: row.map(cell => 
+              new docx.TableCell({
+                children: [new docx.Paragraph(cell)],
+                shading: row === factorRows[0] ? { fill: 'c3cfe2' } : {}
+              })
+            )
+          })
+        ),
+        width: { size: 100, type: docx.WidthType.PERCENTAGE }
+      }),
 
-      H1('VIII. Recomendaciones'),
-      new P('____________________________________________________________'),
+      new docx.Paragraph({ text: '', spacing: { after: 200 } }),
 
-      H1('IX. Anexos'),
-      new P('Gráficos de perfil incluidos.'),
+      // V. ANÁLISIS E INTERPRETACIÓN
+      new docx.Paragraph({
+        text: 'V. ANÁLISIS E INTERPRETACIÓN',
+        heading: docx.HeadingLevel.HEADING_1,
+        spacing: { before: 200, after: 100 },
+        size: 24,
+        bold: true,
+        color: '1a2a4a'
+      }),
+      new docx.Paragraph({
+        text: 'Perfil General',
+        heading: docx.HeadingLevel.HEADING_2,
+        spacing: { before: 100, after: 50 },
+        size: 20,
+        bold: true
+      }),
+      new docx.Paragraph({
+        text: `El evaluado presenta un perfil de personalidad caracterizado por los principales factores elevados (8-10) y bajos (1-3) que se detallan a continuación. Este análisis ofrece una comprensión integral de su estructura de personalidad, estilos de afrontamiento y potenciales áreas de desarrollo.`,
+        spacing: { after: 100 }
+      }),
 
-      new P('Nombre y firma del evaluador'),
-      new P('Cláusula de confidencialidad y condiciones (válida para el momento presente, sujeta a nuevas evaluaciones si cambian las condiciones)')
+      new docx.Paragraph({
+        text: 'Dimensiones Principales',
+        heading: docx.HeadingLevel.HEADING_2,
+        spacing: { before: 100, after: 50 },
+        size: 20,
+        bold: true
+      }),
+      new docx.Paragraph({
+        text: `📊 Extraversión: Nivel ${decat.A + decat.E + decat.F + decat.H} (de 40)`,
+        spacing: { after: 50 }
+      }),
+      new docx.Paragraph({
+        text: `La persona muestra un nivel de extraversión que influye en su forma de relacionarse con el entorno, su energía social y disposición a buscar estimulación externa.`,
+        spacing: { after: 100 }
+      }),
+      new docx.Paragraph({
+        text: `😰 Adaptación Emocional: Nivel ${decat.C + (11 - decat.O) + decat.Q4} (de 30)`,
+        spacing: { after: 50 }
+      }),
+      new docx.Paragraph({
+        text: `A nivel emocional, el evaluado experimenta un nivel de adaptación que refleja su estabilidad, confianza y capacidad para manejar el estrés y la presión.`,
+        spacing: { after: 100 }
+      }),
+
+      new docx.Paragraph({
+        text: 'Aspectos Conductuales Clave',
+        heading: docx.HeadingLevel.HEADING_2,
+        spacing: { before: 100, after: 50 },
+        size: 20,
+        bold: true
+      }),
+
+      // Responsabilidad
+      ...(decat.G >= 8 ? [
+        new docx.Paragraph(`✓ Responsabilidad: En el rango alto (DT ${decat.G}), el evaluado demuestra alto sentido del deber, cumplimiento normativo y confiabilidad.`)
+      ] : decat.G <= 3 ? [
+        new docx.Paragraph(`✗ Responsabilidad: En el rango bajo (DT ${decat.G}), el evaluado puede presentar mayor flexibilidad pero menor énfasis en normas y obligaciones.`)
+      ] : [
+        new docx.Paragraph(`⚖ Responsabilidad: Nivel moderado (DT ${decat.G}), el evaluado balancea responsabilidad con flexibilidad.`)
+      ]),
+
+      new docx.Paragraph({ text: '', spacing: { after: 100 } }),
+
+      // VI. FORTALEZAS Y ÁREAS DE DESARROLLO
+      new docx.Paragraph({
+        text: 'VI. FORTALEZAS Y ÁREAS DE DESARROLLO',
+        heading: docx.HeadingLevel.HEADING_1,
+        spacing: { before: 200, after: 100 },
+        size: 24,
+        bold: true,
+        color: '1a2a4a'
+      }),
+      new docx.Paragraph({
+        text: 'Fortalezas Identificadas:',
+        bold: true,
+        spacing: { before: 50, after: 50 }
+      }),
+      ...factorOrder.filter(f => decat[f] >= 8).map(f =>
+        new docx.Paragraph(
+          `• ${factorNames[f]}: ${getInterpretation(f, decat[f])}`,
+          { spacing: { after: 30 } }
+        )
+      ),
+
+      new docx.Paragraph({ text: '', spacing: { after: 100 } }),
+
+      new docx.Paragraph({
+        text: 'Áreas de Desarrollo:',
+        bold: true,
+        spacing: { before: 50, after: 50 }
+      }),
+      ...factorOrder.filter(f => decat[f] <= 3).map(f =>
+        new docx.Paragraph(
+          `• ${factorNames[f]}: ${getInterpretation(f, decat[f])}`,
+          { spacing: { after: 30 } }
+        )
+      ),
+
+      new docx.Paragraph({ text: '', spacing: { after: 200 } }),
+
+      // VII. RECOMENDACIONES
+      new docx.Paragraph({
+        text: 'VII. RECOMENDACIONES',
+        heading: docx.HeadingLevel.HEADING_1,
+        spacing: { before: 200, after: 100 },
+        size: 24,
+        bold: true,
+        color: '1a2a4a'
+      }),
+      new docx.Paragraph('_________________________________________________________________________________________________________________________________'),
+      new docx.Paragraph('_________________________________________________________________________________________________________________________________'),
+      new docx.Paragraph('_________________________________________________________________________________________________________________________________'),
+
+      new docx.Paragraph({ text: '', spacing: { after: 200 } }),
+
+      // VIII. CONCLUSIONES
+      new docx.Paragraph({
+        text: 'VIII. CONCLUSIONES',
+        heading: docx.HeadingLevel.HEADING_1,
+        spacing: { before: 200, after: 100 },
+        size: 24,
+        bold: true,
+        color: '1a2a4a'
+      }),
+      new docx.Paragraph('_________________________________________________________________________________________________________________________________'),
+      new docx.Paragraph('_________________________________________________________________________________________________________________________________'),
+
+      new docx.Paragraph({ text: '', spacing: { after: 300 } }),
+
+      // FIRMA
+      new docx.Paragraph({
+        text: '_________________________',
+        alignment: docx.AlignmentType.CENTER,
+        spacing: { after: 50 }
+      }),
+      new docx.Paragraph({
+        text: `${personal.responsable}`,
+        alignment: docx.AlignmentType.CENTER,
+        bold: true
+      }),
+      new docx.Paragraph({
+        text: 'Profesional Responsable',
+        alignment: docx.AlignmentType.CENTER,
+        size: 18
+      })
     ]
   });
 
@@ -3483,7 +3809,7 @@ document.getElementById('generate-report').addEventListener('click', () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'informe.docx';
+    a.download = `informe_${personal.nombre.replace(/\s+/g, '_')}_${personal.fecha}.docx`;
     a.click();
     URL.revokeObjectURL(url);
   });
