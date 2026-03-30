@@ -63,10 +63,24 @@ Una conclusión profesional que integre todo el análisis.
 
 Mantén un tono profesional, específico y basado en los datos del test.`;
 
-    // Llamar a Gemini con modelo más nuevo
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
-    const result = await model.generateContent(prompt);
-    const interpretation = result.response.text();
+    // Llamar a Ollama (llama3)
+    const response = await fetch(OLLAMA_API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'llama3',
+        prompt: prompt,
+        stream: false,
+        temperature: 0.7
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error de Ollama: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    const interpretation = data.response;
 
     res.json({ 
       success: true, 
