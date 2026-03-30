@@ -1,167 +1,675 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Formulario</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reporte 16PF</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:          #f4f3ef;
+    --surface:     #ffffff;
+    --border:      #c8c4b8;
+    --border-dark: #2a2824;
+    --text:        #1a1815;
+    --text-muted:  #7a7670;
+    --green-bg:    #d4edda;
+    --green-line:  #5aab6e;
+    --gray-bg:     #e8e6e1;
+    --accent:      #1a1815;
+    --dot:         #1a1815;
+    --section-bg:  #dde8f0;
+    --section-txt: #1a4a6e;
+    --header-bg:   #eef3f7;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    padding: 32px 24px;
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 960px;
+    margin: 0 auto;
+    background: var(--surface);
+    border: 2px solid var(--border-dark);
+    padding: 0;
+    box-shadow: 6px 6px 0 #c8c4b8;
+  }
+
+  /* ── ENCABEZADO ───────────────────────── */
+  .header-box {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    border-bottom: 2px solid var(--border-dark);
+  }
+  .header-left {
+    padding: 16px 20px;
+    border-right: 1px solid var(--border-dark);
+  }
+  .header-right {
+    padding: 16px 20px;
+    min-width: 200px;
+  }
+  .header-row {
+    font-size: 13px;
+    line-height: 1.8;
+    font-family: var(--sans);
+  }
+  .header-row span {
+    font-weight: 700;
+  }
+  .header-label {
+    color: var(--text-muted);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    font-family: var(--mono);
+  }
+
+  /* ── TABLA PRINCIPAL ──────────────────── */
+  .profile-wrap {
+    overflow-x: auto;
+    padding: 0;
+  }
+
+  table.profile {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    table-layout: fixed;
+  }
+
+  /* columna lateral de sección */
+  .col-section  { width: 26px; }
+  .col-bullet   { width: 18px; }
+  .col-fac      { width: 38px; }
+  .col-name     { width: 180px; }
+  .col-pd       { width: 34px; }
+  .col-dt       { width: 34px; }
+  .col-dec      { width: 54px; }   /* × 10 */
+
+  /* ── Celdas base ─────── */
+  table.profile td,
+  table.profile th {
+    border: 1px solid var(--border);
+    padding: 0;
+    text-align: center;
+    vertical-align: middle;
+    height: 28px;
+    font-family: var(--sans);
+  }
+
+  /* cabecera de columnas */
+  table.profile thead th {
+    background: var(--header-bg);
+    font-weight: 700;
+    font-size: 11.5px;
+    height: 30px;
+    border-color: var(--border-dark);
+  }
+  table.profile thead th.th-name {
+    text-align: left;
+    padding-left: 8px;
+  }
+  table.profile thead th.dec-green { background: var(--green-bg); }
+  table.profile thead th.dec-gray  { background: var(--gray-bg);  }
+
+  /* celda de factor */
+  .td-fac   { font-weight: 700; font-family: var(--mono); font-size: 11px; }
+  .td-name  { text-align: left !important; padding-left: 8px !important; font-size: 12px; }
+  .td-num   { font-weight: 700; font-family: var(--mono); font-size: 12px; }
+  .td-bullet { font-size: 14px; color: #555; }
+
+  /* celdas de decatipo */
+  .dec-green { background: var(--green-bg); }
+  .dec-gray  { background: var(--gray-bg);  }
+
+  /* punto ● en celda */
+  .dot-cell {
+    position: relative;
+    overflow: visible;
+  }
+  .dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--dot);
+    position: relative;
+    z-index: 3;
+  }
+
+  /* ── Línea SVG superpuesta ─── */
+  .profile-chart-wrap {
+    position: relative;
+  }
+  .profile-chart-wrap svg.connector-line {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 2;
+    overflow: visible;
+  }
+
+  /* ── Separador de sección ─────── */
+  .section-sep td {
+    background: var(--section-bg) !important;
+    color: var(--section-txt);
+    font-weight: 700;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    font-family: var(--mono);
+    height: 22px;
+    border-color: var(--border-dark) !important;
+  }
+  .section-sep td.dec-green { background: var(--green-bg) !important; }
+  .section-sep td.dec-gray  { background: var(--gray-bg)  !important; }
+
+  /* ── Etiqueta lateral vertical ─── */
+  .td-section-label {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    font-family: var(--mono);
+    color: var(--section-txt);
+    background: var(--section-bg) !important;
+    border-right: 2px solid var(--border-dark) !important;
+    border-color: var(--border-dark) !important;
+    padding: 4px 2px;
+    white-space: nowrap;
+  }
+
+  /* ── Filas de datos ─── */
+  tr.data-row:hover td {
+    background-color: #f0ede6 !important;
+  }
+  tr.data-row:hover td.dec-green { background-color: #c2e6cc !important; }
+  tr.data-row:hover td.dec-gray  { background-color: #d8d5ce !important; }
+
+  /* ── Impresión / export ─── */
+  .toolbar {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    padding: 16px 20px 0;
+  }
+  .btn {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    padding: 7px 16px;
+    border: 1.5px solid var(--border-dark);
+    background: transparent;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+  }
+  .btn:hover { background: var(--border-dark); color: #fff; }
+  .btn-print  { }
+  .btn-export { background: var(--border-dark); color: #fff; }
+  .btn-export:hover { background: #444; }
+
+  @media print {
+    body { padding: 0; background: white; }
+    .page { box-shadow: none; border: 1px solid #000; max-width: 100%; }
+    .toolbar { display: none; }
+  }
+</style>
 </head>
 <body>
-    <h1>Formulario</h1>
-    <form id="survey-form">
-        <fieldset class="personal-data">
-            <legend>Datos personales</legend>
-            <label>Nombre y Apellido:
-                <input type="text" name="nombre" required>
-            </label><br>
-            <label>Edad:
-                <input type="number" name="edad" required>
-            </label><br>
-            <label>Sexo:
-                <select name="sexo" required>
-                    <option value="m">Masculino</option>
-                    <option value="f">Femenino</option>
-                    <option value="o">Otro</option>
-                </select>
-            </label><br>
-            <label>Grado Educativo:
-                <input type="text" name="grado" required>
-            </label><br>
-            <label>Fecha:
-                <input type="date" name="fecha" required>
-            </label><br>
-            <label>Responsable:
-                <input type="text" name="responsable" required>
-            </label>
-        </fieldset>
-        <table id="factors-table">
-            <thead>
-                <tr>
-                    <th>Factor</th>
-                    <th>A</th>
-                    <th>B</th>
-                    <th>C</th>
-                    <th>E</th>
-                    <th>F</th>
-                    <th>G</th>
-                    <th>H</th>
-                    <th>I</th>
-                    <th>L</th>
-                    <th>M</th>
-                    <th>N</th>
-                    <th>O</th>
-                    <th>Q1</th>
-                    <th>Q2</th>
-                    <th>Q3</th>
-                    <th>Q4</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>PB</td>
-                        <td id="pb-a"></td>
-                    <td id="pb-b"></td>
-                    <td id="pb-c"></td>
-                    <td id="pb-e"></td>
-                    <td id="pb-f"></td>
-                    <td id="pb-g"></td>
-                    <td id="pb-h"></td>
-                    <td id="pb-i"></td>
-                    <td id="pb-l"></td>
-                    <td id="pb-m"></td>
-                    <td id="pb-n"></td>
-                    <td id="pb-o"></td>
-                    <td id="pb-q1"></td>
-                    <td id="pb-q2"></td>
-                    <td id="pb-q3"></td>
-                    <td id="pb-q4"></td>
-                </tr>
-                <tr>
-                    <td>Decat</td>
-                    <td id="decat-a"></td>
-                    <td id="decat-b"></td>
-                    <td id="decat-c"></td>
-                    <td id="decat-e"></td>
-                    <td id="decat-f"></td>
-                    <td id="decat-g"></td>
-                    <td id="decat-h"></td>
-                    <td id="decat-i"></td>
-                    <td id="decat-l"></td>
-                    <td id="decat-m"></td>
-                    <td id="decat-n"></td>
-                    <td id="decat-o"></td>
-                    <td id="decat-q1"></td>
-                    <td id="decat-q2"></td>
-                    <td id="decat-q3"></td>
-                    <td id="decat-q4"></td>
-                </tr>
-            </tbody>
-        </table>
-        <div id="questions-container"></div>
-        <button type="submit">Enviar</button>
-        <button type="button" id="generate-report">Generar informe</button>
-    </form>
 
-    <div class="chart-wrapper">
-        <h2 style="text-align:center">PERFIL DEL CUESTIONARIO 16 PF</h2>
-        <div class="tabla-container">
-            <table>
-                <tr>
-                    <th>Factor</th>
-                    <th>PB</th>
-                    <th>Decat</th>
-                    <th>Baja Puntuaci&oacute;n</th>
-                </tr>
-                <tr><td>A</td><td id="res-pb-a"></td><td id="res-decat-a"></td><td>Soliloquia</td></tr>
-                <tr><td>B</td><td id="res-pb-b"></td><td id="res-decat-b"></td><td>Baja Cap.esc.</td></tr>
-                <tr><td>C</td><td id="res-pb-c"></td><td id="res-decat-c"></td><td>Debilidad Yo</td></tr>
-                <tr><td>E</td><td id="res-pb-e"></td><td id="res-decat-e"></td><td>Sumisi&oacute;n</td></tr>
-                <tr><td>F</td><td id="res-pb-f"></td><td id="res-decat-f"></td><td>Retra&iacute;do</td></tr>
-                <tr><td>G</td><td id="res-pb-g"></td><td id="res-decat-g"></td><td>Superego d&eacute;bil</td></tr>
-                <tr><td>H</td><td id="res-pb-h"></td><td id="res-decat-h"></td><td>Timidez</td></tr>
-                <tr><td>I</td><td id="res-pb-i"></td><td id="res-decat-i"></td><td>Severidad</td></tr>
-                <tr><td>L</td><td id="res-pb-l"></td><td id="res-decat-l"></td><td>Confianza</td></tr>
-                <tr><td>M</td><td id="res-pb-m"></td><td id="res-decat-m"></td><td>Objetividad</td></tr>
-                <tr><td>N</td><td id="res-pb-n"></td><td id="res-decat-n"></td><td>Ingenuidad</td></tr>
-                <tr><td>O</td><td id="res-pb-o"></td><td id="res-decat-o"></td><td>Adec. Serena</td></tr>
-                <tr><td>Q1</td><td id="res-pb-q1"></td><td id="res-decat-q1"></td><td>Conservadurismo</td></tr>
-                <tr><td>Q2</td><td id="res-pb-q2"></td><td id="res-decat-q2"></td><td>Dep. Grupal</td></tr>
-                <tr><td>Q3</td><td id="res-pb-q3"></td><td id="res-decat-q3"></td><td>Indiferencia</td></tr>
-                <tr><td>Q4</td><td id="res-pb-q4"></td><td id="res-decat-q4"></td><td>Tranquilidad</td></tr>
-            </table>
-            <canvas id="results-chart"></canvas>
-            <table>
-                <tr>
-                    <th>Alta Puntuaci&oacute;n</th>
-                </tr>
-                <tr><td>Sociabilidad</td></tr>
-                <tr><td>Alta Cap.esc.</td></tr>
-                <tr><td>Fuerza sup del Yo</td></tr>
-                <tr><td>Dominante</td></tr>
-                <tr><td>Impetuosidad</td></tr>
-                <tr><td>Superego fuerte</td></tr>
-                <tr><td>Audacia</td></tr>
-                <tr><td>Sensib. Emoc</td></tr>
-                <tr><td>Desconfianza</td></tr>
-                <tr><td>Subjetividad</td></tr>
-                <tr><td>Astucia</td></tr>
-                <tr><td>Propens. Culpabil.</td></tr>
-                <tr><td>Radicalismo</td></tr>
-                <tr><td>Autosuficiencia</td></tr>
-                <tr><td>Control</td></tr>
-                <tr><td>Tensi&oacute;n</td></tr>
-            </table>
-        </div>
-        
+<div class="toolbar">
+  <button class="btn btn-print" onclick="window.print()">Imprimir</button>
+  <button class="btn btn-export" onclick="exportPNG()">Exportar PNG</button>
+</div>
+
+<div class="page" id="reportPage">
+
+  <!-- ENCABEZADO -->
+  <div class="header-box">
+    <div class="header-left">
+      <div class="header-row">Nombre: <span id="h-nombre">Caso Ilustrativo</span></div>
+      <div class="header-row">Sexo: <span id="h-sexo">Masculino</span>&nbsp;&nbsp;&nbsp;Edad: <span id="h-edad">42</span></div>
+      <div class="header-row">Postula a: <span id="h-postula"></span></div>
     </div>
-
-    <div class="chart-wrapper">
-        <h2>Perfil de personalidad</h2>
-        <canvas id="perfil-chart"></canvas>
+    <div class="header-right">
+      <div class="header-row">Fecha : <span id="h-fecha">2012-03-13</span></div>
+      <div class="header-row">Baremo : <span id="h-baremo">España</span></div>
     </div>
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
-    <script src="https://unpkg.com/docx@7.7.0/build/index.js"></script>
-    <script src="main.js"></script>
+  <!-- TABLA DE PERFIL -->
+  <div class="profile-wrap">
+    <div class="profile-chart-wrap" id="chartWrap">
+      <table class="profile" id="profileTable">
+        <colgroup>
+          <col class="col-section">
+          <col class="col-bullet">
+          <col class="col-fac">
+          <col class="col-name">
+          <col class="col-pd">
+          <col class="col-dt">
+          <!-- 10 dec cols -->
+          <col class="col-dec"><col class="col-dec"><col class="col-dec">
+          <col class="col-dec"><col class="col-dec"><col class="col-dec"><col class="col-dec">
+          <col class="col-dec"><col class="col-dec"><col class="col-dec">
+        </colgroup>
+        <thead>
+          <tr>
+            <th></th>
+            <th></th>
+            <th>Fac.</th>
+            <th class="th-name">Nombre del factor</th>
+            <th>PD</th>
+            <th>DT</th>
+            <th class="dec-gray">1</th>
+            <th class="dec-gray">2</th>
+            <th class="dec-gray">3</th>
+            <th class="dec-green">4</th>
+            <th class="dec-green">5</th>
+            <th class="dec-green">6</th>
+            <th class="dec-green">7</th>
+            <th class="dec-gray">8</th>
+            <th class="dec-gray">9</th>
+            <th class="dec-gray">10</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <!-- generado por JS -->
+        </tbody>
+      </table>
+      <!-- SVG de líneas conectoras (se dibuja por JS) -->
+      <svg class="connector-line" id="svgLines"></svg>
+    </div>
+  </div>
+
+</div><!-- /.page -->
+
+<script>
+// ────────────────────────────────────────────────
+// DATOS DEL PERFIL
+// Modifica estos arrays para personalizar el reporte
+// ────────────────────────────────────────────────
+
+const paciente = {
+  nombre: 'Caso Ilustrativo',
+  sexo: 'Masculino',
+  edad: '42',
+  postula: '',
+  fecha: '2012-03-13',
+  baremo: 'España',
+};
+
+// dec = decatipo (1-10): posición del punto en el gráfico
+// bullet: true → muestra • en la segunda columna
+const escalasPrimarias = [
+  { fac:'A',  nombre:'Afabilidad',           pd:8,  dt:3,  dec:4,  bullet:false },
+  { fac:'B',  nombre:'Razonamiento',          pd:15, dt:10, dec:10, bullet:false },
+  { fac:'C',  nombre:'Estabilidad',           pd:16, dt:4,  dec:4,  bullet:true  },
+  { fac:'E',  nombre:'Dominancia',            pd:14, dt:4,  dec:4,  bullet:false },
+  { fac:'F',  nombre:'Animación',             pd:5,  dt:2,  dec:3,  bullet:true  },
+  { fac:'G',  nombre:'Atención a las normas', pd:12, dt:4,  dec:4,  bullet:false },
+  { fac:'H',  nombre:'Atrevimiento',          pd:10, dt:4,  dec:4,  bullet:false },
+  { fac:'I',  nombre:'Sensibilidad',          pd:6,  dt:5,  dec:5,  bullet:true  },
+  { fac:'L',  nombre:'Vigilancia',            pd:14, dt:7,  dec:7,  bullet:false },
+  { fac:'M',  nombre:'Abstracción',           pd:5,  dt:6,  dec:6,  bullet:false },
+  { fac:'N',  nombre:'Privacidad',            pd:20, dt:10, dec:10, bullet:false },
+  { fac:'O',  nombre:'Aprensión',             pd:5,  dt:4,  dec:4,  bullet:true  },
+  { fac:'Q1', nombre:'Apertura al cambio',    pd:3,  dt:1,  dec:1,  bullet:false },
+  { fac:'Q2', nombre:'Autosuficiencia',       pd:13, dt:9,  dec:9,  bullet:false },
+  { fac:'Q3', nombre:'Perfeccionismo',        pd:12, dt:4,  dec:5,  bullet:false },
+  { fac:'Q4', nombre:'Tensión',               pd:8,  dt:6,  dec:6,  bullet:true  },
+];
+
+const estilosRespuesta = [
+  { fac:'MI', nombre:'Manipulación de imagen', pd:16, dt:6,  dec:6  },
+  { fac:'IN', nombre:'Infrecuencia',           pd:4,  dt:9,  dec:9  },
+  { fac:'AQ', nombre:'Aquiescencia',           pd:47, dt:5,  dec:5  },
+];
+
+const dimensionesGlobales = [
+  { fac:'Ext', nombre:'Extraversión',  pd:null, dt:1,  dec:3  },
+  { fac:'Ans', nombre:'Ansiedad',      pd:null, dt:7,  dec:7  },
+  { fac:'Dur', nombre:'Dureza',        pd:null, dt:9,  dec:9  },
+  { fac:'Ind', nombre:'Independencia', pd:null, dt:5,  dec:5  },
+  { fac:'AuC', nombre:'Autocontrol',   pd:null, dt:4,  dec:4  },
+];
+
+// ────────────────────────────────────────────────
+// RENDER
+// ────────────────────────────────────────────────
+
+// Fill header
+document.getElementById('h-nombre').textContent  = paciente.nombre;
+document.getElementById('h-sexo').textContent    = paciente.sexo;
+document.getElementById('h-edad').textContent    = paciente.edad;
+document.getElementById('h-postula').textContent = paciente.postula;
+document.getElementById('h-fecha').textContent   = paciente.fecha;
+document.getElementById('h-baremo').textContent  = paciente.baremo;
+
+const tbody = document.getElementById('tableBody');
+
+function decClass(n) { return (n >= 4 && n <= 7) ? 'dec-green' : 'dec-gray'; }
+
+function makeDataRow(escala, sectionCell) {
+  const tr = document.createElement('tr');
+  tr.className = 'data-row';
+  tr.dataset.dec = escala.dec;
+
+  // celda de sección (solo la primera fila de cada sección tiene rowspan)
+  tr.appendChild(sectionCell);
+
+  // bullet
+  const tdB = document.createElement('td');
+  tdB.className = 'td-bullet';
+  tdB.textContent = escala.bullet ? '•' : '';
+  tr.appendChild(tdB);
+
+  // factor
+  const tdF = document.createElement('td');
+  tdF.className = 'td-fac';
+  tdF.textContent = escala.fac;
+  tr.appendChild(tdF);
+
+  // nombre
+  const tdN = document.createElement('td');
+  tdN.className = 'td-name';
+  tdN.textContent = escala.nombre;
+  tr.appendChild(tdN);
+
+  // PD
+  const tdPD = document.createElement('td');
+  tdPD.className = 'td-num';
+  tdPD.textContent = escala.pd != null ? escala.pd : '';
+  tr.appendChild(tdPD);
+
+  // DT
+  const tdDT = document.createElement('td');
+  tdDT.className = 'td-num';
+  tdDT.textContent = escala.dt;
+  tr.appendChild(tdDT);
+
+  // 10 celdas de decatipo
+  for (let i = 1; i <= 10; i++) {
+    const td = document.createElement('td');
+    td.className = decClass(i);
+    if (i === escala.dec) {
+      td.classList.add('dot-cell');
+      const dot = document.createElement('span');
+      dot.className = 'dot';
+      td.appendChild(dot);
+    }
+    tr.appendChild(td);
+  }
+
+  return tr;
+}
+
+function makeSepRow(label) {
+  const tr = document.createElement('tr');
+  tr.className = 'section-sep';
+
+  // Celda de etiqueta que abarca las 6 columnas de datos
+  const td = document.createElement('td');
+  td.colSpan = 6;
+  td.textContent = label;
+  td.style.textAlign = 'left';
+  td.style.paddingLeft = '10px';
+  tr.appendChild(td);
+
+  for (let i = 1; i <= 10; i++) {
+    const tdD = document.createElement('td');
+    tdD.className = decClass(i);
+    tr.appendChild(tdD);
+  }
+  return tr;
+}
+
+function makeSectionLabelCell(label, rowspan) {
+  const td = document.createElement('td');
+  td.className = 'td-section-label';
+  td.rowSpan = rowspan;
+  td.textContent = label;
+  return td;
+}
+
+function makePlaceholderCell() {
+  // Celda vacía usada en filas que no son la primera de su sección
+  // (porque la primera ya tiene el rowspan)
+  const td = document.createElement('td');
+  td.style.display = 'none'; // oculta la celda extra generada por rowspan
+  return td;
+}
+
+// ── Escalas primarias
+tbody.appendChild(makeSepRow('ESCALAS PRIMARIAS'));
+escalasPrimarias.forEach((e, i) => {
+  let sectionCell;
+  if (i === 0) {
+    sectionCell = makeSectionLabelCell('Escalas Primarias', escalasPrimarias.length);
+  } else {
+    // el rowspan del td anterior ya cubre esta fila; no añadimos td de sección
+    sectionCell = document.createElement('td');
+    sectionCell.style.display = 'none';
+    // Truco: no añadirla al DOM (el rowspan la cubre)
+    sectionCell = null;
+  }
+
+  const tr = document.createElement('tr');
+  tr.className = 'data-row';
+  tr.dataset.dec = e.dec;
+
+  if (i === 0) tr.appendChild(makeSectionLabelCell('Escalas Primarias', escalasPrimarias.length));
+
+  // bullet
+  const tdB = document.createElement('td');
+  tdB.className = 'td-bullet';
+  tdB.textContent = e.bullet ? '•' : '';
+  tr.appendChild(tdB);
+
+  const tdF = document.createElement('td');
+  tdF.className = 'td-fac';
+  tdF.textContent = e.fac;
+  tr.appendChild(tdF);
+
+  const tdN = document.createElement('td');
+  tdN.className = 'td-name';
+  tdN.textContent = e.nombre;
+  tr.appendChild(tdN);
+
+  const tdPD = document.createElement('td');
+  tdPD.className = 'td-num';
+  tdPD.textContent = e.pd != null ? e.pd : '';
+  tr.appendChild(tdPD);
+
+  const tdDT = document.createElement('td');
+  tdDT.className = 'td-num';
+  tdDT.textContent = e.dt;
+  tr.appendChild(tdDT);
+
+  for (let n = 1; n <= 10; n++) {
+    const td = document.createElement('td');
+    td.className = decClass(n);
+    if (n === e.dec) {
+      td.classList.add('dot-cell');
+      const dot = document.createElement('span');
+      dot.className = 'dot';
+      td.appendChild(dot);
+    }
+    tr.appendChild(td);
+  }
+
+  tbody.appendChild(tr);
+});
+
+// ── Estilos de respuesta
+tbody.appendChild(makeSepRow('ESTILOS DE RESPUESTA'));
+estilosRespuesta.forEach((e, i) => {
+  const tr = document.createElement('tr');
+  tr.className = 'data-row';
+  tr.dataset.dec = e.dec;
+
+  if (i === 0) tr.appendChild(makeSectionLabelCell('Estilos de Respuesta', estilosRespuesta.length));
+
+  const tdB = document.createElement('td');
+  tr.appendChild(tdB);
+
+  const tdF = document.createElement('td');
+  tdF.className = 'td-fac';
+  tdF.textContent = e.fac;
+  tr.appendChild(tdF);
+
+  const tdN = document.createElement('td');
+  tdN.className = 'td-name';
+  tdN.textContent = e.nombre;
+  tr.appendChild(tdN);
+
+  const tdPD = document.createElement('td');
+  tdPD.className = 'td-num';
+  tdPD.textContent = e.pd != null ? e.pd : '';
+  tr.appendChild(tdPD);
+
+  const tdDT = document.createElement('td');
+  tdDT.className = 'td-num';
+  tdDT.textContent = e.dt;
+  tr.appendChild(tdDT);
+
+  for (let n = 1; n <= 10; n++) {
+    const td = document.createElement('td');
+    td.className = decClass(n);
+    if (n === e.dec) {
+      td.classList.add('dot-cell');
+      const dot = document.createElement('span');
+      dot.className = 'dot';
+      td.appendChild(dot);
+    }
+    tr.appendChild(td);
+  }
+
+  tbody.appendChild(tr);
+});
+
+// ── Dimensiones globales
+tbody.appendChild(makeSepRow('DIMENSIONES GLOBALES'));
+dimensionesGlobales.forEach((e, i) => {
+  const tr = document.createElement('tr');
+  tr.className = 'data-row';
+  tr.dataset.dec = e.dec;
+
+  if (i === 0) tr.appendChild(makeSectionLabelCell('Dimensiones Globales', dimensionesGlobales.length));
+
+  const tdB = document.createElement('td');
+  tr.appendChild(tdB);
+
+  const tdF = document.createElement('td');
+  tdF.className = 'td-fac';
+  tdF.textContent = e.fac;
+  tr.appendChild(tdF);
+
+  const tdN = document.createElement('td');
+  tdN.className = 'td-name';
+  tdN.textContent = e.nombre;
+  tr.appendChild(tdN);
+
+  const tdPD = document.createElement('td');
+  tdPD.className = 'td-num';
+  tdPD.textContent = e.pd != null ? e.pd : '';
+  tr.appendChild(tdPD);
+
+  const tdDT = document.createElement('td');
+  tdDT.className = 'td-num';
+  tdDT.textContent = e.dt;
+  tr.appendChild(tdDT);
+
+  for (let n = 1; n <= 10; n++) {
+    const td = document.createElement('td');
+    td.className = decClass(n);
+    if (n === e.dec) {
+      td.classList.add('dot-cell');
+      const dot = document.createElement('span');
+      dot.className = 'dot';
+      td.appendChild(dot);
+    }
+    tr.appendChild(td);
+  }
+
+  tbody.appendChild(tr);
+});
+
+// ────────────────────────────────────────────────
+// DIBUJAR LÍNEAS CONECTORAS ENTRE PUNTOS
+// Se dibuja una polilínea por sección
+// ────────────────────────────────────────────────
+
+function drawLines() {
+  const wrap    = document.getElementById('chartWrap');
+  const svg     = document.getElementById('svgLines');
+  const wrapRect = wrap.getBoundingClientRect();
+
+  svg.setAttribute('viewBox', `0 0 ${wrapRect.width} ${wrapRect.height}`);
+  svg.innerHTML = '';
+
+  // Recopilar posiciones de los puntos por sección
+  // Secciones: escalas primarias (primeros 16 data-rows), estilos (3), globales (5)
+  const allRows = Array.from(document.querySelectorAll('tr.data-row'));
+
+  // Dividir en secciones
+  const sections = [
+    allRows.slice(0, escalasPrimarias.length),
+    allRows.slice(escalasPrimarias.length, escalasPrimarias.length + estilosRespuesta.length),
+    allRows.slice(escalasPrimarias.length + estilosRespuesta.length),
+  ];
+
+  sections.forEach(rows => {
+    const points = [];
+
+    rows.forEach(tr => {
+      const dot = tr.querySelector('.dot');
+      if (!dot) return;
+      const dotRect = dot.getBoundingClientRect();
+      const x = dotRect.left - wrapRect.left + dotRect.width / 2;
+      const y = dotRect.top  - wrapRect.top  + dotRect.height / 2;
+      points.push({ x, y });
+    });
+
+    if (points.length < 2) return;
+
+    const polyline = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+    polyline.setAttribute('points', points.map(p => `${p.x},${p.y}`).join(' '));
+    polyline.setAttribute('fill', 'none');
+    polyline.setAttribute('stroke', '#1a1815');
+    polyline.setAttribute('stroke-width', '1.5');
+    polyline.setAttribute('stroke-linejoin', 'round');
+    polyline.setAttribute('stroke-linecap', 'round');
+    svg.appendChild(polyline);
+  });
+}
+
+// Dibujar al cargar y al redimensionar
+window.addEventListener('load', () => { setTimeout(drawLines, 80); });
+window.addEventListener('resize', drawLines);
+
+// ────────────────────────────────────────────────
+// EXPORT PNG (requiere html2canvas o usa print)
+// ────────────────────────────────────────────────
+function exportPNG() {
+  window.print();
+}
+</script>
 </body>
 </html>
