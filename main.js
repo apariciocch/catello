@@ -3628,6 +3628,187 @@ document.getElementById('generate-report').addEventListener('click', () => {
   });
 });
 
+// =============== INTEGRACIÓN CON OPENAI ===============
+
+// Variables globales para el modal
+let reportDataCache = null;
+
+// Función para llamar al servidor (que a su vez llama a OpenAI de forma segura)
+async function callOpenAIServer(personal, pb, decat) {
+  try {
+    const response = await fetch('http://localhost:3001/api/analyze', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        personal,
+        pb,
+        decat
+      })
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || `Error del servidor: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data.interpretation;
+  } catch (error) {
+    console.error('Error al llamar servidor:', error);
+    throw error;
+  }
+}
+
+// Generar interpretación con IA (via servidor seguro)
+async function generateAIInterpretation(personal, pb, decat) {
+  return await callOpenAIServer(personal, pb, decat);
+}
+
+// Evento para generar informe (ahora automático, sin pedir API Key)
+document.getElementById('generate-report').addEventListener('click', async () => {
+  if (!window.reportData) {
+    const form = document.getElementById('survey-form');
+    if (form) {
+      form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+    }
+  }
+  if (!window.reportData) {
+    alert('Primero complete el formulario y presione Enviar.');
+    return;
+  }
+
+  reportDataCache = window.reportData;
+  
+  // Mostrar modal de carga
+  document.getElementById('apiKeyModal').classList.add('active');
+  document.getElementById('loadingSpinner').classList.add('active');
+  document.querySelector('.modal-buttons').style.display = 'none';
+  document.querySelector('.form-group').style.display = 'none';
+  const modalP = document.querySelectorAll('.modal-content > p');
+  modalP.forEach(p => p.style.display = 'none');
+
+  try {
+    const { personal, pb, decat } = reportDataCache;
+    const aiInterpretation = await generateAIInterpretation(personal, pb, decat);
+    
+    // Generar informe con interpretación de IA
+    generateReportWithAI(reportDataCache, aiInterpretation);
+    
+    document.getElementById('apiKeyModal').classList.remove('active');
+    document.getElementById('loadingSpinner').classList.remove('active');
+    document.querySelector('.modal-buttons').style.display = 'flex';
+    document.querySelector('.form-group').style.display = 'flex';
+    modalP.forEach(p => p.style.display = 'block');
+  } catch (error) {
+    alert('Error: ' + error.message + '\n\n¿Está el servidor corriendo en puerto 3001?\nEjecuta: npm install && npm start');
+    document.getElementById('apiKeyModal').classList.remove('active');
+    document.getElementById('loadingSpinner').classList.remove('active');
+    document.querySelector('.modal-buttons').style.display = 'flex';
+    document.querySelector('.form-group').style.display = 'flex';
+    modalP.forEach(p => p.style.display = 'block');
+  }
+});
+
+// Función para generar informe con interpretación IA
+function generateReportWithAI(reportData, aiInterpretation) {
+  const { personal, pb, decat } = reportData;
+  const doc = new docx.Document({ sections: [] });
+  const P = docx.Paragraph;
+
+  const children = [
+    new P({
+      text: 'INFORME PSICOLÓGICO - TEST 16PF',
+      alignment: docx.AlignmentType.CENTER,
+      spacing: { line: 360, before: 200, after: 200 },
+      size: 28,
+      bold: true
+    }),
+    new P({
+      text: '(Análisis Generado con IA - ChatGPT)',
+      alignment: docx.AlignmentType.CENTER,
+      spacing: { after: 200 },
+      size: 14,
+      color: '666666'
+    }),
+
+    new P({
+      text: 'I. DATOS GENERALES',
+      heading: docx.HeadingLevel.HEADING_1,
+      spacing: { before: 200, after: 100 }
+    }),
+    new P(`Nombre y apellidos: ${personal.nombre}`),
+    new P(`Edad: ${personal.edad}`),
+    new P(`Sexo: ${personal.sexo === 'm' ? 'Masculino' : personal.sexo === 'f' ? 'Femenino' : 'Otro'}`),
+    new P(`Grado Educativo: ${personal.grado}`),
+    new P(`Fecha de evaluación: ${personal.fecha}`),
+    new P(`Responsable: ${personal.responsable}`),
+
+    new P({
+      text: 'II. TÉCNICAS UTILIZADAS',
+      heading: docx.HeadingLevel.HEADING_1,
+      spacing: { before: 200, after: 100 }
+    }),
+    new P('• Test 16PF (Cuestionario de Factores de Personalidad de Cattell)'),
+    new P('• Entrevista clínica'),
+    new P('• Observación de conducta'),
+    new P('• Análisis interpretativo con IA (ChatGPT)'),
+
+    new P({
+      text: 'III. RESULTADOS DEL TEST 16PF',
+      heading: docx.HeadingLevel.HEADING_1,
+      spacing: { before: 200, after: 100 }
+    }),
+    new P(`A (Afabilidad) - PB: ${pb.A} | Decat: ${decat.A}`),
+    new P(`B (Razonamiento) - PB: ${pb.B} | Decat: ${decat.B}`),
+    new P(`C (Estabilidad Emocional) - PB: ${pb.C} | Decat: ${decat.C}`),
+    new P(`E (Dominancia) - PB: ${pb.E} | Decat: ${decat.E}`),
+    new P(`F (Animación) - PB: ${pb.F} | Decat: ${decat.F}`),
+    new P(`G (Atención a Normas) - PB: ${pb.G} | Decat: ${decat.G}`),
+    new P(`H (Atrevimiento) - PB: ${pb.H} | Decat: ${decat.H}`),
+    new P(`I (Sensibilidad) - PB: ${pb.I} | Decat: ${decat.I}`),
+    new P(`L (Vigilancia) - PB: ${pb.L} | Decat: ${decat.L}`),
+    new P(`M (Abstracción) - PB: ${pb.M} | Decat: ${decat.M}`),
+    new P(`N (Privacidad) - PB: ${pb.N} | Decat: ${decat.N}`),
+    new P(`O (Aprensión) - PB: ${pb.O} | Decat: ${decat.O}`),
+    new P(`Q1 (Apertura al Cambio) - PB: ${pb.Q1} | Decat: ${decat.Q1}`),
+    new P(`Q2 (Autosuficiencia) - PB: ${pb.Q2} | Decat: ${decat.Q2}`),
+    new P(`Q3 (Perfeccionismo) - PB: ${pb.Q3} | Decat: ${decat.Q3}`),
+    new P(`Q4 (Tensión) - PB: ${pb.Q4} | Decat: ${decat.Q4}`),
+
+    new P({
+      text: 'IV. ANÁLISIS E INTERPRETACIÓN (Generado con IA)',
+      heading: docx.HeadingLevel.HEADING_1,
+      spacing: { before: 200, after: 100 }
+    }),
+    new P(aiInterpretation, { spacing: { after: 100 } }),
+
+    new P({
+      text: 'V. OBSERVACIONES ADICIONALES Y SEGUIMIENTO',
+      heading: docx.HeadingLevel.HEADING_1,
+      spacing: { before: 200, after: 100 }
+    }),
+    new P('_________________________________________________________________'),
+    new P('_________________________________________________________________'),
+
+    new P({ text: '', spacing: { before: 400, after: 100 } }),
+    new P(`${personal.responsable}`, { alignment: docx.AlignmentType.CENTER, bold: true }),
+    new P('Profesional Responsable', { alignment: docx.AlignmentType.CENTER })
+  ];
+
+  doc.addSection({ children });
+
+  docx.Packer.toBlob(doc).then(blob => {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `informe_IA_${personal.nombre.replace(/\s+/g, '_')}_${personal.fecha}.docx`;
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+}
+
 // Calcular Factor PB para A según las respuestas
 function calcularFactorPB_A(ans) {
   const primera = [
