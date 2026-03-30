@@ -322,8 +322,14 @@
             function makeSepRow(label) {
                 const tr = document.createElement('tr');
                 tr.className = 'section-sep';
+                
+                // Primera columna vacía (alineación con section)
+                const tdS = document.createElement('td');
+                tdS.style.width = '26px';
+                tr.appendChild(tdS);
+                
                 const td = document.createElement('td');
-                td.colSpan = 6;
+                td.colSpan = 5;
                 td.textContent = label;
                 td.style.textAlign = 'left';
                 td.style.paddingLeft = '10px';
@@ -348,6 +354,11 @@
                 const tr = document.createElement('tr');
                 tr.className = 'data-row';
                 tr.dataset.dec = dec;
+
+                // Primera columna vacía (alineación)
+                const tdS = document.createElement('td');
+                tdS.style.width = '26px';
+                tr.appendChild(tdS);
 
                 const tdB = document.createElement('td');
                 tdB.className = 'td-bullet';
@@ -426,16 +437,16 @@
                 const pd = pbValues[fac] !== undefined ? pbValues[fac] : 0;
                 const dec = decValues[fac] !== undefined ? decValues[fac] : 5;
                 
-                // Encontrar celdas PD y DT (3era y 4ta celdas td después del bullet y factor)
+                // Encontrar celdas PD y DT
                 const tds = row.querySelectorAll('td');
-                if (tds.length > 3) {
-                    // Índice: [0] bullet, [1] factor, [2] nombre, [3] PD, [4] DT, [5+] decatipos
-                    tds[3].textContent = pd || ''; // PD
-                    tds[4].textContent = dec;      // DT
+                if (tds.length > 5) {
+                    // Índice: [0] vacía, [1] bullet, [2] factor, [3] nombre, [4] PD, [5] DT, [6+] decatipos
+                    tds[4].textContent = pd || ''; // PD
+                    tds[5].textContent = dec;      // DT
                     
-                    // Actualizar celdas de decatipos
-                    for (let i = 5; i < tds.length; i++) {
-                        const colNum = i - 4; // 1-10
+                    // Actualizar celdas de decatipos (columnas 6-15, que son décimos 1-10)
+                    for (let i = 6; i < tds.length; i++) {
+                        const colNum = i - 5; // 1-10 (i=6 => 1, i=7 => 2, ... i=15 => 10)
                         const td = tds[i];
                         td.innerHTML = '';
                         
