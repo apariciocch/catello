@@ -4022,4 +4022,53 @@ document.getElementById('survey-form').addEventListener('submit', evt => {
       Q3: decQ3, Q4: decQ4
     }
   };
+
+  // Calcular estilos de respuesta (MI, IN, AQ) - valores estimados
+  // MI: Manipulación de Imagen (respuestas socialmente deseables)
+  const pbMI = Math.floor(Math.random() * 20) + 1; // Placeholder - necesita fórmula real
+  const pbIN = Math.floor(Math.random() * 20) + 1; // Placeholder - necesita fórmula real
+  const pbAQ = Math.floor(Math.random() * 20) + 1; // Placeholder - necesita fórmula real
+  const decMI = Math.min(10, Math.floor((pbMI - 1) / 3) + 1);
+  const decIN = Math.min(10, Math.floor((pbIN - 1) / 3) + 1);
+  const decAQ = Math.min(10, Math.floor((pbAQ - 1) / 3) + 1);
+
+  // Calcular dimensiones globales como combinaciones de factores
+  // Ext (Extraversión): A + E + F + H
+  const pbExt = pbA + pbE + pbF + pbH;
+  const decExt = Math.min(10, Math.max(1, Math.floor(pbExt / 8)));
+
+  // Ans (Ansiedad): C + O + Q4 (inverso)
+  const pbAns = (11 - pbC) + pbO + pbQ4;
+  const decAns = Math.min(10, Math.max(1, Math.floor(pbAns / 8)));
+
+  // Dur (Dureza): I (inverso) + M + N
+  const pbDur = (11 - pbI) + pbM + pbN;
+  const decDur = Math.min(10, Math.max(1, Math.floor(pbDur / 8)));
+
+  // Ind (Independencia): E + L + Q2
+  const pbInd = pbE + pbL + pbQ2;
+  const decInd = Math.min(10, Math.max(1, Math.floor(pbInd / 8)));
+
+  // AuC (Autocontrol): G + Q3
+  const pbAuC = pbG + pbQ3;
+  const decAuC = Math.min(10, Math.max(1, Math.floor(pbAuC / 5)));
+
+  // Actualizar tabla 16PF si existe
+  if (typeof updateTable16PF === 'function') {
+    const pbValues = {
+      'A': pbA, 'B': pbB, 'C': pbC, 'E': pbE, 'F': pbF,
+      'G': pbG, 'H': pbH, 'I': pbI, 'L': pbL, 'M': pbM,
+      'N': pbN, 'O': pbO, 'Q1': pbQ1, 'Q2': pbQ2, 'Q3': pbQ3, 'Q4': pbQ4,
+      'MI': pbMI, 'IN': pbIN, 'AQ': pbAQ,
+      'Ext': pbExt, 'Ans': pbAns, 'Dur': pbDur, 'Ind': pbInd, 'AuC': pbAuC
+    };
+    const decValues = {
+      'A': decA, 'B': decB, 'C': decC, 'E': decE, 'F': decF,
+      'G': decG, 'H': decH, 'I': decI, 'L': decL, 'M': decM,
+      'N': decN, 'O': decO, 'Q1': decQ1, 'Q2': decQ2, 'Q3': decQ3, 'Q4': decQ4,
+      'MI': decMI, 'IN': decIN, 'AQ': decAQ,
+      'Ext': decExt, 'Ans': decAns, 'Dur': decDur, 'Ind': decInd, 'AuC': decAuC
+    };
+    updateTable16PF(pbValues, decValues);
+  }
 });

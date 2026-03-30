@@ -290,144 +290,177 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
     <script src="https://unpkg.com/docx@7.7.0/build/index.js"></script>
-    <script>
-        // Datos del perfil 16PF
-        const escalasPrimarias = [
-            { fac:'A',  nombre:'Afabilidad',           pd:8,  dt:3,  dec:4,  bullet:false },
-            { fac:'B',  nombre:'Razonamiento',          pd:15, dt:10, dec:10, bullet:false },
-            { fac:'C',  nombre:'Estabilidad',           pd:16, dt:4,  dec:4,  bullet:true  },
-            { fac:'E',  nombre:'Dominancia',            pd:14, dt:4,  dec:4,  bullet:false },
-            { fac:'F',  nombre:'Animación',             pd:5,  dt:2,  dec:3,  bullet:true  },
-            { fac:'G',  nombre:'Atención a las normas', pd:12, dt:4,  dec:4,  bullet:false },
-            { fac:'H',  nombre:'Atrevimiento',          pd:10, dt:4,  dec:4,  bullet:false },
-            { fac:'I',  nombre:'Sensibilidad',          pd:6,  dt:5,  dec:5,  bullet:true  },
-            { fac:'L',  nombre:'Vigilancia',            pd:14, dt:7,  dec:7,  bullet:false },
-            { fac:'M',  nombre:'Abstracción',           pd:5,  dt:6,  dec:6,  bullet:false },
-            { fac:'N',  nombre:'Privacidad',            pd:20, dt:10, dec:10, bullet:false },
-            { fac:'O',  nombre:'Aprensión',             pd:5,  dt:4,  dec:4,  bullet:true  },
-            { fac:'Q1', nombre:'Apertura al cambio',    pd:3,  dt:1,  dec:1,  bullet:false },
-            { fac:'Q2', nombre:'Autosuficiencia',       pd:13, dt:9,  dec:9,  bullet:false },
-            { fac:'Q3', nombre:'Perfeccionismo',        pd:12, dt:4,  dec:5,  bullet:false },
-            { fac:'Q4', nombre:'Tensión',               pd:8,  dt:6,  dec:6,  bullet:true  },
-        ];
+    <script id="table-16pf-script">
+        // Nombres de factores para la tabla 16PF
+        const factor16PFNames = {
+            'A': 'Afabilidad', 'B': 'Razonamiento', 'C': 'Estabilidad', 'E': 'Dominancia',
+            'F': 'Animación', 'G': 'Atención a las normas', 'H': 'Atrevimiento', 'I': 'Sensibilidad',
+            'L': 'Vigilancia', 'M': 'Abstracción', 'N': 'Privacidad', 'O': 'Aprensión',
+            'Q1': 'Apertura al cambio', 'Q2': 'Autosuficiencia', 'Q3': 'Perfeccionismo', 'Q4': 'Tensión',
+            'MI': 'Manipulación de imagen', 'IN': 'Infrecuencia', 'AQ': 'Aquiescencia',
+            'Ext': 'Extraversión', 'Ans': 'Ansiedad', 'Dur': 'Dureza', 'Ind': 'Independencia', 'AuC': 'Autocontrol'
+        };
 
-        const estilosRespuesta = [
-            { fac:'MI', nombre:'Manipulación de imagen', pd:16, dt:6,  dec:6  },
-            { fac:'IN', nombre:'Infrecuencia',           pd:4,  dt:9,  dec:9  },
-            { fac:'AQ', nombre:'Aquiescencia',           pd:47, dt:5,  dec:5  },
-        ];
+        function initTable16PF() {
+            const tbody = document.getElementById('tableBody');
+            if (!tbody) return;
+            
+            // Limpiar tabla
+            tbody.innerHTML = '';
 
-        const dimensionesGlobales = [
-            { fac:'Ext', nombre:'Extraversión',  pd:null, dt:1,  dec:3  },
-            { fac:'Ans', nombre:'Ansiedad',      pd:null, dt:7,  dec:7  },
-            { fac:'Dur', nombre:'Dureza',        pd:null, dt:9,  dec:9  },
-            { fac:'Ind', nombre:'Independencia', pd:null, dt:5,  dec:5  },
-            { fac:'AuC', nombre:'Autocontrol',   pd:null, dt:4,  dec:4  },
-        ];
+            function decClass(n) { return (n >= 4 && n <= 7) ? 'dec-green' : 'dec-gray'; }
 
-        const tbody = document.getElementById('tableBody');
-
-        function decClass(n) { return (n >= 4 && n <= 7) ? 'dec-green' : 'dec-gray'; }
-
-        function makeSepRow(label) {
-            const tr = document.createElement('tr');
-            tr.className = 'section-sep';
-            const td = document.createElement('td');
-            td.colSpan = 6;
-            td.textContent = label;
-            td.style.textAlign = 'left';
-            td.style.paddingLeft = '10px';
-            tr.appendChild(td);
-            for (let i = 1; i <= 10; i++) {
-                const tdD = document.createElement('td');
-                tdD.className = decClass(i);
-                tr.appendChild(tdD);
-            }
-            return tr;
-        }
-
-        function makeSectionLabelCell(label, rowspan) {
-            const td = document.createElement('td');
-            td.className = 'td-section-label';
-            td.rowSpan = rowspan;
-            td.textContent = label;
-            return td;
-        }
-
-        function makeDataRow(e, addSection) {
-            const tr = document.createElement('tr');
-            tr.className = 'data-row';
-            tr.dataset.dec = e.dec;
-
-            if (addSection) tr.appendChild(makeSectionLabelCell(addSection, 999));
-
-            const tdB = document.createElement('td');
-            tdB.className = 'td-bullet';
-            tdB.textContent = e.bullet ? '•' : '';
-            tr.appendChild(tdB);
-
-            const tdF = document.createElement('td');
-            tdF.className = 'td-fac';
-            tdF.textContent = e.fac;
-            tr.appendChild(tdF);
-
-            const tdN = document.createElement('td');
-            tdN.className = 'td-name';
-            tdN.textContent = e.nombre;
-            tr.appendChild(tdN);
-
-            const tdPD = document.createElement('td');
-            tdPD.className = 'td-num';
-            tdPD.textContent = e.pd != null ? e.pd : '';
-            tr.appendChild(tdPD);
-
-            const tdDT = document.createElement('td');
-            tdDT.className = 'td-num';
-            tdDT.textContent = e.dt;
-            tr.appendChild(tdDT);
-
-            for (let n = 1; n <= 10; n++) {
+            function makeSepRow(label) {
+                const tr = document.createElement('tr');
+                tr.className = 'section-sep';
                 const td = document.createElement('td');
-                td.className = decClass(n);
-                if (n === e.dec) {
-                    td.classList.add('dot-cell');
-                    const dot = document.createElement('span');
-                    dot.className = 'dot';
-                    td.appendChild(dot);
-                }
+                td.colSpan = 6;
+                td.textContent = label;
+                td.style.textAlign = 'left';
+                td.style.paddingLeft = '10px';
                 tr.appendChild(td);
+                for (let i = 1; i <= 10; i++) {
+                    const tdD = document.createElement('td');
+                    tdD.className = decClass(i);
+                    tr.appendChild(tdD);
+                }
+                return tr;
             }
-            return tr;
+
+            function makeSectionLabelCell(label, rowspan) {
+                const td = document.createElement('td');
+                td.className = 'td-section-label';
+                td.rowSpan = rowspan;
+                td.textContent = label;
+                return td;
+            }
+
+            function makeDataRow(fac, nombre, pd, dec, bullet) {
+                const tr = document.createElement('tr');
+                tr.className = 'data-row';
+                tr.dataset.dec = dec;
+
+                const tdB = document.createElement('td');
+                tdB.className = 'td-bullet';
+                tdB.textContent = bullet ? '•' : '';
+                tr.appendChild(tdB);
+
+                const tdF = document.createElement('td');
+                tdF.className = 'td-fac';
+                tdF.textContent = fac;
+                tr.appendChild(tdF);
+
+                const tdN = document.createElement('td');
+                tdN.className = 'td-name';
+                tdN.textContent = nombre;
+                tr.appendChild(tdN);
+
+                const tdPD = document.createElement('td');
+                tdPD.className = 'td-num';
+                tdPD.textContent = pd != null ? pd : '';
+                tr.appendChild(tdPD);
+
+                const tdDT = document.createElement('td');
+                tdDT.className = 'td-num';
+                tdDT.textContent = dec;
+                tr.appendChild(tdDT);
+
+                for (let n = 1; n <= 10; n++) {
+                    const td = document.createElement('td');
+                    td.className = decClass(n);
+                    if (n === dec) {
+                        td.classList.add('dot-cell');
+                        const dot = document.createElement('span');
+                        dot.className = 'dot';
+                        td.appendChild(dot);
+                    }
+                    tr.appendChild(td);
+                }
+                return tr;
+            }
+
+            // Escalas Primarias (placeholder - se actualizan con datos reales)
+            tbody.appendChild(makeSepRow('ESCALAS PRIMARIAS'));
+            ['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'N', 'O', 'Q1', 'Q2', 'Q3', 'Q4'].forEach((fac, i) => {
+                const nombre = factor16PFNames[fac];
+                tbody.appendChild(makeDataRow(fac, nombre, 0, 5, false));
+            });
+
+            // Estilos de Respuesta
+            tbody.appendChild(makeSepRow('ESTILOS DE RESPUESTA'));
+            ['MI', 'IN', 'AQ'].forEach((fac, i) => {
+                const nombre = factor16PFNames[fac];
+                tbody.appendChild(makeDataRow(fac, nombre, 0, 5, false));
+            });
+
+            // Dimensiones Globales
+            tbody.appendChild(makeSepRow('DIMENSIONES GLOBALES'));
+            ['Ext', 'Ans', 'Dur', 'Ind', 'AuC'].forEach((fac, i) => {
+                const nombre = factor16PFNames[fac];
+                tbody.appendChild(makeDataRow(fac, nombre, null, 5, false));
+            });
+
+            drawLines();
         }
 
-        tbody.appendChild(makeSepRow('ESCALAS PRIMARIAS'));
-        escalasPrimarias.forEach((e, i) => {
-            tbody.appendChild(makeDataRow(e, i === 0 ? 'Escalas Primarias' : null));
-        });
-
-        tbody.appendChild(makeSepRow('ESTILOS DE RESPUESTA'));
-        estilosRespuesta.forEach((e, i) => {
-            tbody.appendChild(makeDataRow(e, i === 0 ? 'Estilos de Respuesta' : null));
-        });
-
-        tbody.appendChild(makeSepRow('DIMENSIONES GLOBALES'));
-        dimensionesGlobales.forEach((e, i) => {
-            tbody.appendChild(makeDataRow(e, i === 0 ? 'Dimensiones Globales' : null));
-        });
+        function updateTable16PF(pbValues, decValues) {
+            const tbody = document.getElementById('tableBody');
+            if (!tbody) return;
+            
+            const rows = Array.from(tbody.querySelectorAll('tr.data-row'));
+            const factors = ['A', 'B', 'C', 'E', 'F', 'G', 'H', 'I', 'L', 'M', 'N', 'O', 'Q1', 'Q2', 'Q3', 'Q4', 'MI', 'IN', 'AQ', 'Ext', 'Ans', 'Dur', 'Ind', 'AuC'];
+            
+            rows.forEach((row, idx) => {
+                if (idx >= factors.length) return;
+                
+                const fac = factors[idx];
+                const pd = pbValues[fac] !== undefined ? pbValues[fac] : 0;
+                const dec = decValues[fac] !== undefined ? decValues[fac] : 5;
+                
+                // Encontrar celdas PD y DT (3era y 4ta celdas td después del bullet y factor)
+                const tds = row.querySelectorAll('td');
+                if (tds.length > 3) {
+                    // Índice: [0] bullet, [1] factor, [2] nombre, [3] PD, [4] DT, [5+] decatipos
+                    tds[3].textContent = pd || ''; // PD
+                    tds[4].textContent = dec;      // DT
+                    
+                    // Actualizar celdas de decatipos
+                    for (let i = 5; i < tds.length; i++) {
+                        const colNum = i - 4; // 1-10
+                        const td = tds[i];
+                        td.innerHTML = '';
+                        
+                        const esVerde = colNum >= 4 && colNum <= 7;
+                        const fill = esVerde ? 'dec-green' : 'dec-gray';
+                        td.className = fill;
+                        
+                        if (colNum === dec) {
+                            td.classList.add('dot-cell');
+                            const dot = document.createElement('span');
+                            dot.className = 'dot';
+                            td.appendChild(dot);
+                        }
+                    }
+                }
+            });
+            
+            drawLines();
+        }
 
         function drawLines() {
             const wrap = document.getElementById('chartWrap');
             const svg = document.getElementById('svgLines');
+            if (!wrap || !svg) return;
+            
             const wrapRect = wrap.getBoundingClientRect();
-
             svg.setAttribute('viewBox', `0 0 ${wrapRect.width} ${wrapRect.height}`);
             svg.innerHTML = '';
 
             const allRows = Array.from(document.querySelectorAll('tr.data-row'));
             const sections = [
-                allRows.slice(0, escalasPrimarias.length),
-                allRows.slice(escalasPrimarias.length, escalasPrimarias.length + estilosRespuesta.length),
-                allRows.slice(escalasPrimarias.length + estilosRespuesta.length),
+                allRows.slice(0, 16),  // Escalas primarias
+                allRows.slice(16, 19), // Estilos de respuesta
+                allRows.slice(19),     // Dimensiones globales
             ];
 
             sections.forEach(rows => {
@@ -452,7 +485,8 @@
             });
         }
 
-        window.addEventListener('load', () => { setTimeout(drawLines, 80); });
+        // Inicializar tabla al cargar
+        window.addEventListener('load', initTable16PF);
         window.addEventListener('resize', drawLines);
     </script>
     <script src="main.js"></script>
