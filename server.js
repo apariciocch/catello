@@ -66,8 +66,8 @@ Una conclusión profesional que integre todo el análisis.
 
 Mantén un tono profesional, específico y basado en los datos del test.`;
 
-    // Llamar a Gemini
-    const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+    // Llamar a Gemini con modelo más nuevo
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
     const result = await model.generateContent(prompt);
     const interpretation = result.response.text();
 
