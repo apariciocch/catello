@@ -96,7 +96,7 @@ app.get('/api/health', (req, res) => {
 });
 
 // Iniciar servidor
-app.listen(PORT, 'localhost', () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Servidor seguro corriendo en http://localhost:${PORT}`);
   console.log(`✅ API Key cargada desde .env`);
   console.log(`📡 Endpoint: POST http://localhost:${PORT}/api/analyze`);

@@ -3636,7 +3636,9 @@ let reportDataCache = null;
 // Función para llamar al servidor (que a su vez llama a OpenAI de forma segura)
 async function callOpenAIServer(personal, pb, decat) {
   try {
-    const response = await fetch('http://localhost:3001/api/analyze', {
+    // Usar el mismo hostname que el frontend (funciona en localhost y URLs remotas)
+    const apiUrl = `http://${window.location.hostname}:3001/api/analyze`;
+    const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
